@@ -1,0 +1,227 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    background: #111;
+}
+
+#game {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+#xhair {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: 128px;
+    height: 128px;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+#timer {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 24px;
+    font-family: sans-serif;
+    pointer-events: none;
+}
+
+#score {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    color: white;
+    font-size: 18px;
+    font-family: sans-serif;
+    pointer-events: none;
+}
+
+#fps {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    color: white;
+    font-size: 18px;
+    font-family: sans-serif;
+    pointer-events: none;
+}
+
+#start-button {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 12px 24px;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 20;
+}
+
+#results {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px 40px;
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    font-family: sans-serif;
+    font-size: 22px;
+    text-align: center;
+    z-index: 30;
+}
+
+#results div {
+    margin: 8px 0;
+}
+
+#restart-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+#pause {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px 40px;
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    font-family: sans-serif;
+    font-size: 28px;
+    text-align: center;
+    z-index: 25;
+}
+
+#resume-button {
+    display: block;
+    margin: 20px auto 0;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+#resume-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+#menu {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    background: #111;
+    color: white;
+
+    z-index: 100;
+}
+
+#menu h1 {
+    margin-bottom: 20px;
+}
+
+#menu label {
+    font-size: 14px;
+}
+
+#menu select,
+#menu button {
+    width: 200px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+#menu button {
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#scenario-config {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    background: #111;
+    color: white;
+
+    z-index: 100;
+}
+
+#scenario-config h1 {
+    margin-bottom: 20px;
+}
+
+#scenario-config label {
+    font-size: 14px;
+}
+
+#scenario-config select,
+#scenario-config button {
+    width: 200px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+#scenario-config button {
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#settings {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    background: #111;
+    color: white;
+
+    z-index: 100;
+}
+
+#settings h1 {
+    margin-bottom: 20px;
+}
+
+#settings button {
+    width: 200px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
