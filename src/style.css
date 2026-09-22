@@ -1,3 +1,36 @@
+:root {
+    --color-background: #050706;
+
+    --color-surface: #0a0d0b;
+    --color-surface-raised: #0f1411;
+
+    --color-border: #26362a;
+    --color-border-bright: #3c5542;
+
+    --color-primary: #7dff9a;
+    --color-primary-dim: #3d8c50;
+
+    --color-text: #d7e8da;
+    --color-text-dim: #718075;
+    --color-text-faint: #465249;
+
+    --color-danger: #ff5c5c;
+
+    --font-ui: "Terminal", monospace;
+
+    --text-small: 10px;
+    --text-body: 12px;
+    --text-normal: 14px;
+    --text-large: 18px;
+    --text-title: 24px;
+
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -8,10 +41,43 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
+
+    background: var(--color-background);
+    color: var(--color-text);
+    font-family: var(--font-ui);
+    font-size: var(--text-body);
+    font-weight: 400;
+    letter-spacing: 0.04em;
 }
 
-body {
-    background: #111;
+button,
+select,
+input {
+    font-family: var(--font-ui);
+    font-size: var(--text-normal);
+    color: var(--color-text);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0;
+}
+
+button {
+    padding: 10px 16px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+button:hover {
+    border-color: var(--color-primary-dim);
+    color: var(--color-primary);
+}
+
+button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+    outline: 1px solid var(--color-primary);
+    outline-offset: 3px;
 }
 
 #game {
@@ -29,100 +95,176 @@ body {
     transform: translate(-50%, -50%);
     pointer-events: none;
 }
+/* =========================================================
+   GAME HUD
+   ========================================================= */
 
-#timer {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: white;
-    font-size: 24px;
-    font-family: sans-serif;
-    pointer-events: none;
-}
-
-#score {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    color: white;
-    font-size: 18px;
-    font-family: sans-serif;
-    pointer-events: none;
-}
-
+#timer,
+#score,
 #fps {
     position: fixed;
-    top: 20px;
-    right: 20px;
-    color: white;
-    font-size: 18px;
-    font-family: sans-serif;
-    pointer-events: none;
-}
 
-#start-button {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 12px 24px;
-    font-size: 18px;
-    cursor: pointer;
     z-index: 20;
+
+    pointer-events: none;
+
+    font-family: var(--font-ui);
+    font-weight: 600;
+
+    letter-spacing: 0.08em;
 }
 
-#results {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 30px 40px;
-    background: rgba(0, 0, 0, 0.85);
-    color: white;
-    font-family: sans-serif;
-    font-size: 22px;
-    text-align: center;
-    z-index: 30;
+/* Timer */
+
+#timer {
+    top: var(--space-lg);
+    left: var(--space-lg);
+
+    color: var(--color-text);
+
+    font-size: var(--text-large);
 }
 
-#results div {
-    margin: 8px 0;
+/* Score */
+
+#score {
+    top: var(--space-lg);
+    right: var(--space-lg);
+
+    color: var(--color-primary);
+
+    font-size: var(--text-large);
+
+    text-align: right;
 }
 
-#restart-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 18px;
-    cursor: pointer;
+/* FPS */
+
+#fps {
+    left: var(--space-lg);
+    bottom: var(--space-md);
+
+    color: var(--color-text-faint);
+
+    font-size: var(--text-small);
 }
+/* =========================================================
+   PAUSE
+   ========================================================= */
 
 #pause {
     position: fixed;
+    inset: 0;
+    z-index: 50;
+
+    background: rgba(5, 7, 6, 0.78);
+    color: var(--color-text);
+
+    text-align: center;
+    pointer-events: auto;
+}
+
+#pause > div {
+    position: absolute;
+
     top: 50%;
     left: 50%;
+
+    transform: translate(-50%, -120px);
+
+    color: var(--color-text);
+    font-size: var(--text-title);
+    font-weight: 600;
+    letter-spacing: 0.16em;
+}
+
+#pause #resume-button {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    width: 220px;
+    height: 42px;
+
     transform: translate(-50%, -50%);
-    padding: 30px 40px;
-    background: rgba(0, 0, 0, 0.85);
-    color: white;
-    font-family: sans-serif;
-    font-size: 28px;
-    text-align: center;
-    z-index: 25;
+
+    margin: 0;
 }
 
-#resume-button {
-    display: block;
-    margin: 20px auto 0;
-    padding: 10px 20px;
-    font-size: 18px;
+#pause #main-menu-button {
+    position: absolute;
+
+    top: calc(50% + 58px);
+    left: 50%;
+
+    width: 220px;
+    height: 42px;
+
+    transform: translate(-50%, -50%);
+
+    margin: 0;
+}
+
+#pause #resume-button,
+#pause #main-menu-button {
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+
     cursor: pointer;
+
+    font-family: var(--font-ui);
+    font-size: var(--text-normal);
+    font-weight: 600;
+    letter-spacing: 0.1em;
 }
 
-#resume-button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+#pause #resume-button:hover,
+#pause #main-menu-button:hover {
+    border-color: var(--color-border-bright);
+    background: var(--color-surface-raised);
+    color: var(--color-primary);
 }
+
+#pause #resume-button:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+/* =========================================================
+   RESULTS
+   ========================================================= */
+
+#results {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-md);
+
+    background: rgba(5, 7, 6, 0.85);
+    color: var(--color-text);
+
+    font-size: var(--text-large);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-align: center;
+}
+
+#results button {
+    margin-top: var(--space-md);
+    width: 220px;
+    height: 42px;
+}
+
+/* =========================================================
+   MAIN MENU
+   ========================================================= */
 
 #menu {
     position: fixed;
@@ -130,36 +272,215 @@ body {
 
     display: flex;
     flex-direction: column;
-    align-items: center;
+
     justify-content: center;
+    align-items: center;
 
-    gap: 12px;
+    background: var(--color-background);
 
-    background: #111;
-    color: white;
+    color: var(--color-text);
 
     z-index: 100;
+
+    padding: var(--space-xl);
 }
 
-#menu h1 {
-    margin-bottom: 20px;
+/*
+ * Main menu content is deliberately narrow.
+ * This gives the interface a piece of equipment / console
+ * feeling rather than a generic fullscreen game menu.
+ */
+.menu-header {
+    width: min(420px, 100%);
+
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: var(--space-xl);
 }
 
-#menu label {
-    font-size: 14px;
+.menu-eyebrow {
+    margin-bottom: var(--space-sm);
+
+    color: var(--color-text-dim);
+
+    font-size: var(--text-small);
+    font-weight: 600;
+
+    letter-spacing: 0.16em;
 }
 
-#menu select,
-#menu button {
-    width: 200px;
-    padding: 10px;
-    font-size: 16px;
+.menu-header h1 {
+    margin: 0;
+
+    color: var(--color-text);
+
+    font-size: var(--text-title);
+    font-weight: 600;
+
+    letter-spacing: 0.12em;
 }
 
-#menu button {
-    margin-top: 10px;
+/*
+ * Small system state indicator beneath the title.
+ */
+.menu-status {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+
+    margin-top: var(--space-md);
+
+    color: var(--color-text-dim);
+
+    font-size: var(--text-small);
+    letter-spacing: 0.12em;
+}
+
+.menu-status-indicator {
+    width: 6px;
+    height: 6px;
+
+    background: var(--color-primary);
+
+    box-shadow: 0 0 8px rgba(125, 255, 154, 0.35);
+}
+
+/* =========================================================
+   SCENARIO
+   ========================================================= */
+
+.menu-section {
+    width: min(420px, 100%);
+
+    display: flex;
+    flex-direction: column;
+
+    gap: var(--space-sm);
+
+    margin-bottom: var(--space-lg);
+}
+
+.ui-label {
+    color: var(--color-text-dim);
+
+    font-size: var(--text-small);
+    font-weight: 600;
+
+    letter-spacing: 0.14em;
+}
+
+.ui-select {
+    width: 100%;
+    height: 42px;
+
+    padding: 0 var(--space-md);
+
+    appearance: none;
+
     cursor: pointer;
+
+    letter-spacing: 0.06em;
 }
+
+.ui-select:hover {
+    border-color: var(--color-border-bright);
+}
+
+.ui-select:focus-visible {
+    outline: 1px solid var(--color-primary);
+    outline-offset: 3px;
+}
+
+/* =========================================================
+   ACTIONS
+   ========================================================= */
+
+.menu-actions {
+    width: min(420px, 100%);
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: var(--space-sm);
+}
+
+.ui-button {
+    min-height: 42px;
+
+    border: 1px solid var(--color-border);
+
+    background: var(--color-surface);
+
+    color: var(--color-text);
+
+    padding: 0 var(--space-md);
+
+    cursor: pointer;
+
+    font-family: var(--font-ui);
+    font-size: var(--text-normal);
+    font-weight: 600;
+
+    letter-spacing: 0.1em;
+
+    transition:
+        border-color 120ms ease,
+        color 120ms ease,
+        background 120ms ease;
+}
+
+.ui-button:hover {
+    border-color: var(--color-border-bright);
+
+    color: var(--color-primary);
+
+    background: var(--color-surface-raised);
+}
+
+.ui-button:focus-visible {
+    outline: 1px solid var(--color-primary);
+    outline-offset: 3px;
+}
+
+.ui-button-primary {
+    border-color: var(--color-primary-dim);
+
+    color: var(--color-primary);
+}
+
+.ui-button-primary:hover {
+    border-color: var(--color-primary);
+
+    background: var(--color-surface-raised);
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.menu-footer {
+    width: min(420px, 100%);
+
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: var(--space-xl);
+
+    padding-top: var(--space-sm);
+
+    border-top: 1px solid var(--color-border);
+
+    color: var(--color-text-faint);
+
+    font-size: var(--text-small);
+
+    letter-spacing: 0.1em;
+}
+
+/* =========================================================
+   SCENARIO CONFIGURATION
+   ========================================================= */
 
 #scenario-config {
     position: fixed;
@@ -167,36 +488,187 @@ body {
 
     display: flex;
     flex-direction: column;
-    align-items: center;
+
     justify-content: center;
+    align-items: center;
 
-    gap: 12px;
-
-    background: #111;
-    color: white;
+    background: var(--color-background);
+    color: var(--color-text);
 
     z-index: 100;
+
+    padding: var(--space-xl);
 }
+
+/* Header */
 
 #scenario-config h1 {
-    margin-bottom: 20px;
+    width: min(420px, 100%);
+
+    margin: 0 0 var(--space-xl);
+
+    color: var(--color-text);
+
+    font-size: var(--text-title);
+    font-weight: 600;
+
+    letter-spacing: 0.12em;
 }
+
+/* Configuration labels */
 
 #scenario-config label {
-    font-size: 14px;
+    width: min(420px, 100%);
+
+    margin-bottom: var(--space-xs);
+
+    color: var(--color-text-dim);
+
+    font-size: var(--text-small);
+    font-weight: 600;
+
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
 }
 
-#scenario-config select,
-#scenario-config button {
-    width: 200px;
-    padding: 10px;
-    font-size: 16px;
-}
+/* Selects */
 
-#scenario-config button {
-    margin-top: 10px;
+#scenario-config select {
+    width: min(420px, 100%);
+    height: 42px;
+
+    margin-bottom: var(--space-md);
+    padding: 0 var(--space-md);
+
+    appearance: none;
+
+    background: var(--color-surface);
+    color: var(--color-text);
+
+    border: 1px solid var(--color-border);
+    border-radius: 0;
+
+    font-family: var(--font-ui);
+    font-size: var(--text-normal);
+
+    letter-spacing: 0.06em;
+
     cursor: pointer;
 }
+
+#scenario-config select:hover {
+    border-color: var(--color-border-bright);
+}
+
+#scenario-config select:focus-visible {
+    outline: 1px solid var(--color-primary);
+    outline-offset: 3px;
+}
+
+/* Custom numeric inputs */
+
+#scenario-config input {
+    width: min(420px, 100%);
+    height: 42px;
+
+    margin-top: calc(-1 * var(--space-sm));
+    margin-bottom: var(--space-md);
+
+    padding: 0 var(--space-md);
+
+    background: var(--color-surface);
+    color: var(--color-text);
+
+    border: 1px solid var(--color-border);
+    border-radius: 0;
+
+    font-family: var(--font-ui);
+    font-size: var(--text-normal);
+
+    letter-spacing: 0.04em;
+}
+
+#scenario-config input:hover {
+    border-color: var(--color-border-bright);
+}
+
+#scenario-config input:focus-visible {
+    outline: 1px solid var(--color-primary);
+    outline-offset: 3px;
+}
+
+/* Action area */
+
+#scenario-config button {
+    width: min(420px, 100%);
+    min-height: 42px;
+
+    margin-top: var(--space-sm);
+    padding: 0 var(--space-md);
+
+    background: var(--color-surface);
+    color: var(--color-text);
+
+    border: 1px solid var(--color-border);
+    border-radius: 0;
+
+    font-family: var(--font-ui);
+    font-size: var(--text-normal);
+    font-weight: 600;
+
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition:
+        border-color 120ms ease,
+        color 120ms ease,
+        background 120ms ease;
+}
+
+#scenario-config button:hover {
+    border-color: var(--color-border-bright);
+
+    color: var(--color-primary);
+
+    background: var(--color-surface-raised);
+}
+
+#scenario-config button:focus-visible {
+    outline: 1px solid var(--color-primary);
+    outline-offset: 3px;
+}
+
+/* START button */
+
+#scenario-config button:first-of-type {
+    margin-top: var(--space-lg);
+
+    border-color: var(--color-primary-dim);
+
+    color: var(--color-primary);
+}
+
+#scenario-config button:first-of-type:hover {
+    border-color: var(--color-primary);
+    background: var(--color-surface-raised);
+}
+
+/* BACK button */
+
+#scenario-config button:last-of-type {
+    margin-top: var(--space-sm);
+
+    color: var(--color-text-dim);
+}
+
+#scenario-config button:last-of-type:hover {
+    color: var(--color-text);
+}
+/* =========================================================
+   SETTINGS
+   ========================================================= */
 
 #settings {
     position: fixed;
@@ -204,24 +676,160 @@ body {
 
     display: flex;
     flex-direction: column;
+
     align-items: center;
     justify-content: center;
 
-    gap: 12px;
-
-    background: #111;
-    color: white;
+    background: var(--color-background);
+    color: var(--color-text);
 
     z-index: 100;
+
+    padding: var(--space-xl);
 }
 
 #settings h1 {
-    margin-bottom: 20px;
+    width: min(420px, 100%);
+
+    margin: 0 0 var(--space-xl);
+
+    color: var(--color-text);
+
+    font-size: var(--text-title);
+    font-weight: 600;
+
+    letter-spacing: 0.12em;
 }
 
-#settings button {
-    width: 200px;
-    padding: 10px;
-    font-size: 16px;
+/* Labels */
+
+#settings label {
+    width: min(420px, 100%);
+
+    margin-bottom: var(--space-xs);
+
+    color: var(--color-text-dim);
+
+    font-size: var(--text-small);
+    font-weight: 600;
+
+    letter-spacing: 0.14em;
+
+    text-transform: uppercase;
+}
+
+/* Text / number inputs */
+
+#settings input[type="number"],
+#settings input[type="text"] {
+    width: min(420px, 100%);
+    height: 42px;
+
+    margin-bottom: var(--space-md);
+    padding: 0 var(--space-md);
+
+    background: var(--color-surface);
+    color: var(--color-text);
+
+    border: 1px solid var(--color-border);
+    border-radius: 0;
+
+    font-family: var(--font-ui);
+    font-size: var(--text-normal);
+
+    letter-spacing: 0.04em;
+}
+
+#settings input[type="number"]:hover,
+#settings input[type="text"]:hover {
+    border-color: var(--color-border-bright);
+}
+
+#settings input[type="number"]:focus-visible,
+#settings input[type="text"]:focus-visible {
+    outline: 1px solid var(--color-primary);
+    outline-offset: 3px;
+}
+
+/* Placeholder */
+
+#settings input::placeholder {
+    color: var(--color-text-faint);
+}
+
+/* Target colour */
+
+#settings input[type="color"] {
+    width: min(420px, 100%);
+    height: 42px;
+
+    margin-bottom: var(--space-md);
+    padding: 4px;
+
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0;
+
     cursor: pointer;
 }
+
+#settings input[type="color"]:hover {
+    border-color: var(--color-border-bright);
+}
+
+#settings input[type="color"]:focus-visible {
+    outline: 1px solid var(--color-primary);
+    outline-offset: 3px;
+}
+
+/* Crosshair label contains its own input in the current TS */
+
+#settings label input[type="text"] {
+    display: block;
+
+    margin-top: var(--space-sm);
+    margin-bottom: 0;
+}
+
+/* Back */
+
+#settings button {
+    width: min(420px, 100%);
+    min-height: 42px;
+
+    margin-top: var(--space-md);
+    padding: 0 var(--space-md);
+
+    background: var(--color-surface);
+    color: var(--color-text-dim);
+
+    border: 1px solid var(--color-border);
+    border-radius: 0;
+
+    font-family: var(--font-ui);
+    font-size: var(--text-normal);
+    font-weight: 600;
+
+    letter-spacing: 0.1em;
+
+    cursor: pointer;
+
+    transition:
+        border-color 120ms ease,
+        color 120ms ease,
+        background 120ms ease;
+}
+
+#settings button:hover {
+    border-color: var(--color-border-bright);
+
+    color: var(--color-text);
+
+    background: var(--color-surface-raised);
+}
+
+#settings button:focus-visible {
+    outline: 1px solid var(--color-primary);
+    outline-offset: 3px;
+}
+
