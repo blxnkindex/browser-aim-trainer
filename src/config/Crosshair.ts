@@ -170,8 +170,7 @@ function setPath(object: unknown, path: string, value: unknown): void {
     current[parts[parts.length - 1]] = value;
 }
 
-type CodeMapEntry = [path: string, convert: (value: string) => unknown
-];
+type CodeMapEntry = [path: string, convert: (value: string) => unknown];
 
 const CODE_MAP: Record<string, CodeMapEntry> = {
     "0:s": [
@@ -188,17 +187,11 @@ const CODE_MAP: Record<string, CodeMapEntry> = {
     ],
     "P:c": [
         "primary.color",
-        value => clamp(
-            Math.round(num(value, 0)),
-            0,
-            8
-        ),
+        value => clamp(Math.round(num(value, 0)), 0, 8),
     ],
     "P:u": [
         "primary.hexColor.value",
-        value => value
-            .replace(/^#/, "")
-            .toUpperCase(),
+        value => value.replace(/^#/, "").toUpperCase(),
     ],
     "P:b": [
         "primary.hexColor.enabled",
@@ -210,19 +203,11 @@ const CODE_MAP: Record<string, CodeMapEntry> = {
     ],
     "P:t": [
         "primary.outlines.width",
-        value => clamp(
-            Math.round(num(value, 1)),
-            1,
-            6
-        ),
+        value => clamp(Math.round(num(value, 1)), 1, 6),
     ],
     "P:o": [
         "primary.outlines.alpha",
-        value => clamp(
-            num(value, 0.5),
-            0,
-            1
-        ),
+        value => clamp(num(value, 0.5), 0, 1),
     ],
     "P:d": [
         "primary.dot.enabled",
@@ -230,19 +215,11 @@ const CODE_MAP: Record<string, CodeMapEntry> = {
     ],
     "P:z": [
         "primary.dot.width",
-        value => clamp(
-            Math.round(num(value, 2)),
-            1,
-            6
-        ),
+        value => clamp(Math.round(num(value, 2)), 1, 6),
     ],
     "P:a": [
         "primary.dot.alpha",
-        value => clamp(
-            num(value, 1),
-            0,
-            1
-        ),
+        value => clamp(num(value, 1), 0, 1),
     ],
     "P:f": [
         "general.hideOnFire",
@@ -258,27 +235,15 @@ const CODE_MAP: Record<string, CodeMapEntry> = {
     ],
     "P:0t": [
         "primary.inner.width",
-        value => clamp(
-            Math.round(num(value, 2)),
-            0,
-            10
-        ),
+        value => clamp(Math.round(num(value, 2)), 0, 10),
     ],
     "P:0l": [
         "primary.inner.length",
-        value => clamp(
-            Math.round(num(value, 6)),
-            0,
-            20
-        ),
+        value => clamp(Math.round(num(value, 6)), 0, 20),
     ],
     "P:0v": [
         "primary.inner.vertical.length",
-        value => clamp(
-            Math.round(num(value, 6)),
-            0,
-            20
-        ),
+        value => clamp(Math.round(num(value, 6)), 0, 20),
     ],
     "P:0g": [
         "primary.inner.vertical.enabled",
@@ -286,19 +251,11 @@ const CODE_MAP: Record<string, CodeMapEntry> = {
     ],
     "P:0o": [
         "primary.inner.offset",
-        value => clamp(
-            Math.round(num(value, 3)),
-            0,
-            20
-        ),
+        value => clamp(Math.round(num(value, 3)), 0, 20),
     ],
     "P:0a": [
         "primary.inner.alpha",
-        value => clamp(
-            num(value, 0.8),
-            0,
-            1
-        ),
+        value => clamp(num(value, 0.8), 0, 1),
     ],
     "P:0m": [
         "primary.inner.moveMul.enabled",
@@ -310,19 +267,11 @@ const CODE_MAP: Record<string, CodeMapEntry> = {
     ],
     "P:0s": [
         "primary.inner.moveMul.mul",
-        value => clamp(
-            num(value, 1),
-            0,
-            3
-        ),
+        value => clamp(num(value, 1), 0, 3),
     ],
     "P:0e": [
         "primary.inner.fireMul.mul",
-        value => clamp(
-            num(value, 1),
-            0,
-            3
-        ),
+        value => clamp(num(value, 1), 0, 3),
     ],
     "P:1b": [
         "primary.outer.enabled",
@@ -330,27 +279,15 @@ const CODE_MAP: Record<string, CodeMapEntry> = {
     ],
     "P:1t": [
         "primary.outer.width",
-        value => clamp(
-            Math.round(num(value, 2)),
-            0,
-            10
-        ),
+        value => clamp(Math.round(num(value, 2)), 0, 10),
     ],
     "P:1l": [
         "primary.outer.length",
-        value => clamp(
-            Math.round(num(value, 2)),
-            0,
-            10
-        ),
+        value => clamp(Math.round(num(value, 2)), 0, 10),
     ],
     "P:1v": [
         "primary.outer.vertical.length",
-        value => clamp(
-            Math.round(num(value, 2)),
-            0,
-            20
-        ),
+        value => clamp(Math.round(num(value, 2)), 0, 20),
     ],
     "P:1g": [
         "primary.outer.vertical.enabled",
@@ -358,19 +295,11 @@ const CODE_MAP: Record<string, CodeMapEntry> = {
     ],
     "P:1o": [
         "primary.outer.offset",
-        value => clamp(
-            Math.round(num(value, 10)),
-            0,
-            40
-        ),
+        value => clamp(Math.round(num(value, 10)), 0, 40),
     ],
     "P:1a": [
         "primary.outer.alpha",
-        value => clamp(
-            num(value, 0.35),
-            0,
-            1
-        ),
+        value => clamp(num(value, 0.35), 0, 1),
     ],
     "P:1m": [
         "primary.outer.moveMul.enabled",
@@ -382,19 +311,11 @@ const CODE_MAP: Record<string, CodeMapEntry> = {
     ],
     "P:1s": [
         "primary.outer.moveMul.mul",
-        value => clamp(
-            num(value, 1),
-            0,
-            3
-        ),
+        value => clamp(num(value, 1), 0, 3),
     ],
     "P:1e": [
         "primary.outer.fireMul.mul",
-        value => clamp(
-            num(value, 1),
-            0,
-            3
-        ),
+        value => clamp(num(value, 1), 0, 3),
     ],
 };
 

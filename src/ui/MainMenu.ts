@@ -3,59 +3,94 @@ import { ScenarioConfig } from "../scenarios/Scenario";
 export class MainMenu<T extends string> {
     private element: HTMLDivElement;
     private scenarioSelect: HTMLSelectElement;
+    private playButton: HTMLButtonElement;
+    private settingsButton: HTMLButtonElement;
 
     constructor(
         private scenarios: Record<T, ScenarioConfig>,
-        onStart: (id: T) => void,
-        onSettings: () => void
+        private onPlay: (scenarioId: T) => void,
+        private onSettings: () => void
     ) {
         this.element = document.createElement("div");
         this.element.id = "menu";
 
+        const header = document.createElement("div");
+        header.className = "menu-header";
+        const eyebrow = document.createElement("div");
+        eyebrow.className = "menu-eyebrow";
+        eyebrow.textContent = "AIM TRAINING SYSTEM";
         const title = document.createElement("h1");
         title.textContent = "AIM TRAINER";
+        const status = document.createElement("div");
+        status.className = "menu-status";
+        status.innerHTML = `
+            <span class="menu-status-indicator"></span>
+            SYSTEM READY
+        `;
+        header.appendChild(eyebrow);
+        header.appendChild(title);
+        header.appendChild(status);
 
-        const label = document.createElement("label");
-        label.textContent = "Scenario";
-
+        const scenarioSection = document.createElement("div");
+        scenarioSection.className = "menu-section";
+        const scenarioLabel = document.createElement("label");
+        scenarioLabel.className = "ui-label";
+        scenarioLabel.textContent = "SCENARIO";
+        scenarioLabel.htmlFor = "scenario-select";
         this.scenarioSelect = document.createElement("select");
-
-        for (const id of Object.keys(scenarios) as T[]) {
+        this.scenarioSelect.id = "scenario-select";
+        this.scenarioSelect.className = "ui-select";
+        for (const id of Object.keys(this.scenarios) as T[]) {
             const option = document.createElement("option");
-
             option.value = id;
             option.textContent = id;
-
             this.scenarioSelect.appendChild(option);
         }
+        scenarioSection.appendChild(scenarioLabel);
+        scenarioSection.appendChild(this.scenarioSelect);
 
-        const playButton = document.createElement("button");
-        playButton.textContent = "PLAY";
+        const actions = document.createElement("div");
+        actions.className = "menu-actions";
+        this.playButton = document.createElement("button");
+        this.playButton.className = "ui-button ui-button-primary";
+        this.playButton.textContent = "PLAY";
+        this.settingsButton = document.createElement("button");
+        this.settingsButton.className = "ui-button";
+        this.settingsButton.textContent = "SETTINGS";
+        actions.appendChild(this.playButton);
+        actions.appendChild(this.settingsButton);
 
-        playButton.addEventListener("click", () => {
-            onStart(this.scenarioSelect.value as T);
-        });
+        const footer = document.createElement("div");
+        footer.className = "menu-footer";
+        const version = document.createElement("span");
+        version.textContent = "AIM TRAINER // WEB";
+        const session = document.createElement("span");
+        session.textContent = "LOCAL SESSION";
+        footer.appendChild(version);
+        footer.appendChild(session);
 
-        this.element.appendChild(title);
-        this.element.appendChild(label);
-        this.element.appendChild(this.scenarioSelect);
-        this.element.appendChild(playButton);
+        this.element.appendChild(header);
+        this.element.appendChild(scenarioSection);
+        this.element.appendChild(actions);
+        this.element.appendChild(footer);
+
         document.body.appendChild(this.element);
 
-        const settingsButton = document.createElement("button");
-        settingsButton.textContent = "SETTINGS";
-
-        settingsButton.addEventListener("click", () => {
-            onSettings();
+        this.playButton.addEventListener("click", () => {
+            const id = this.scenarioSelect.value as T;
+            this.onPlay(id);
         });
-        this.element.appendChild(settingsButton);
+
+        this.settingsButton.addEventListener("click", () => {
+            this.onSettings();
+        });
     }
 
-    show() {
+    show(): void {
         this.element.style.display = "flex";
     }
 
-    hide() {
+    hide(): void {
         this.element.style.display = "none";
     }
 }

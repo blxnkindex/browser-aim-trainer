@@ -7,13 +7,14 @@ import { Camera } from "./player/Camera";
 import { HitDetection } from "./sys/HitDetection";
 import { Scenario, ScenarioConfig } from "./scenarios/Scenario";
 import { HUD } from "./ui/HUD";
-import { TrainingBox } from "./environment/TrainingBox";
 import { scenarios } from "./scenarios/definitions";
 import { MainMenu } from "./ui/MainMenu";
 import { ScenarioSettings } from "./ui/ScenarioSettings";
 import { valorantVFOV } from "./config/Valorant";
 import { SettingsMenu } from "./ui/Settings";
 import { userconfig } from "./config/UserConfig";
+import { Environment } from "./environment/Environment";
+import { box } from "./environment/definitions";
 
 const canvas = document.querySelector<HTMLCanvasElement>("#game");
 
@@ -27,7 +28,8 @@ renderer.setSize(window.innerWidth,window.innerHeight);
 
 const scene = new T.Scene();
 scene.background = new T.Color(0x111111);
-new TrainingBox(scene);
+const environment = new Environment(box);
+scene.add(environment.object);
 
 const aspect = window.innerWidth / window.innerHeight;
 const camera = new T.PerspectiveCamera(valorantVFOV(aspect), aspect, 0.1, 1000);

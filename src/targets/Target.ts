@@ -29,10 +29,7 @@ export class Target {
         color = "#ff0000"
     ) {
         const geometry = new T.SphereGeometry(size, 12, 12);
-
-        const material = new T.MeshBasicMaterial({
-            color,
-        });
+        const material = new T.MeshBasicMaterial({color,});
 
         this.mesh = new T.Mesh(geometry, material);
         scene.add(this.mesh);

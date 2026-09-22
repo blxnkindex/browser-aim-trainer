@@ -1,10 +1,6 @@
 import { Scenario } from "../scenarios/Scenario";
 import { Score } from "../sys/Score";
-import {
-    parseValorantCrosshairCodeSafe,
-    renderCrosshair,
-} from "../config/Crosshair";
-
+import { parseValorantCrosshairCodeSafe, renderCrosshair } from "../config/Crosshair";
 import { userconfig } from "../config/UserConfig";
 
 export class HUD {
@@ -15,14 +11,11 @@ export class HUD {
     private resumeButton: HTMLButtonElement;
     private pauseElement: HTMLDivElement;
     private mainMenuButton: HTMLButtonElement;
-
     private crosshairCanvas: HTMLCanvasElement;
-
 
     private lastFrameTime = performance.now();
     private frameCount = 0;
     private fps = 0;
-
     private cooldownInterval: number | null = null;
 
     constructor(
@@ -45,10 +38,14 @@ export class HUD {
         this.resultsElement.id = "results";
         this.pauseElement.id = "pause";
         this.resumeButton.id = "resume-button";
+        this.mainMenuButton.id = "main-menu-button";
+
         this.resultsElement.style.display = "none";
         this.pauseElement.innerHTML = "<div>PAUSED</div>";
+
         this.resumeButton.textContent = "RESUME";
         this.mainMenuButton.textContent = "MAIN MENU";
+
         this.pauseElement.style.display = "none";
 
         document.body.appendChild(this.timerElement);
@@ -56,6 +53,7 @@ export class HUD {
         document.body.appendChild(this.fpsElement);
         document.body.appendChild(this.resultsElement);
         document.body.appendChild(this.pauseElement);
+
         this.pauseElement.appendChild(this.resumeButton);
         this.pauseElement.appendChild(this.mainMenuButton);
 
@@ -63,11 +61,9 @@ export class HUD {
             this.onMainMenu();
         });
 
-        this.crosshairCanvas =
-            document.getElementById("xhair") as HTMLCanvasElement;
+        this.crosshairCanvas = document.getElementById("xhair") as HTMLCanvasElement;
 
         this.refreshCrosshair();
-
         this.hideCrosshair();
     }
 
@@ -79,10 +75,7 @@ export class HUD {
         this.frameCount++;
 
         if (timestamp - this.lastFrameTime >= 500) {
-            this.fps =
-                this.frameCount /
-                ((timestamp - this.lastFrameTime) / 1000);
-
+            this.fps = this.frameCount / ((timestamp - this.lastFrameTime) / 1000);
             this.frameCount = 0;
             this.lastFrameTime = timestamp;
         }
@@ -90,10 +83,14 @@ export class HUD {
         if (this.scenario.isPaused) {
             this.timerElement.textContent = "PAUSED";
         } else {
-            this.timerElement.textContent =
-                `${(this.scenario.remaining / 1000).toFixed(1)}s`;
+            this.timerElement.textContent = `${(this.scenario.remaining / 1000).toFixed(1)}s`;
         }
-        this.scoreElement.textContent = `Score: ${this.score.pts} | Hits: ${this.score.hits} | Shots: ${this.score.shots} | Accuracy: ${(this.score.accuracy * 100).toFixed(1)}%`;
+
+        this.scoreElement.textContent =
+            `Score: ${this.score.pts} | ` +
+            `Hits: ${this.score.hits} | ` +
+            `Shots: ${this.score.shots} | ` +
+            `Accuracy: ${(this.score.accuracy * 100).toFixed(1)}%`;
         this.fpsElement.textContent = `FPS: ${Math.round(this.fps)}`;
     }
 
@@ -101,42 +98,43 @@ export class HUD {
         this.scenario = scenario;
         this.score = score;
 
-        const crosshairProfile =
-            parseValorantCrosshairCodeSafe(
-                userconfig.crosshairCode
-            );
-
-        renderCrosshair(
-            this.crosshairCanvas,
-            crosshairProfile
-        );
+        const crosshairProfile = parseValorantCrosshairCodeSafe(userconfig.crosshairCode);
+        renderCrosshair(this.crosshairCanvas, crosshairProfile);
     }
 
     showResults() {
         if (!this.score) {
             return;
         }
-        
+
         this.hideCrosshair();
+        this.hidePaused();
 
         this.timerElement.style.display = "none";
         this.scoreElement.style.display = "none";
+
         this.resultsElement.innerHTML = `
             <div>Score: ${this.score.pts}</div>
             <div>Accuracy: ${(this.score.accuracy * 100).toFixed(1)}%</div>
             <div>Average Reaction: ${this.score.averageReactionTime.toFixed(0)} ms</div>
             <div>Best Reaction: ${this.score.bestReactionTime.toFixed(0)} ms</div>
+
             <button id="restart-button">PLAY AGAIN</button>
+            <button id="results-main-menu-button">MAIN MENU</button>
         `;
 
-        this.resultsElement.style.display = "block";
-
-        const restartButton =
-            this.resultsElement.querySelector<HTMLButtonElement>("#restart-button");
+        this.resultsElement.style.display = "flex";
+        const restartButton = this.resultsElement.querySelector<HTMLButtonElement>("#restart-button");
+        const resultsMainMenuButton = this.resultsElement.querySelector<HTMLButtonElement>("#results-main-menu-button");
 
         restartButton?.addEventListener("click", () => {
             this.resultsElement.style.display = "none";
             this.onRestart();
+        });
+
+        resultsMainMenuButton?.addEventListener("click", () => {
+            this.resultsElement.style.display = "none";
+            this.onMainMenu();
         });
     }
 
@@ -160,10 +158,8 @@ export class HUD {
 
     showPaused(onResume: () => void) {
         this.pauseElement.style.display = "block";
-        this.clearCooldown();
 
-        // Browser enforces a ~1.25s security cooldown on requestPointerLock after ESC exit.
-        // We buffer it slightly to 1300ms to guarantee Chrome's internal timer has expired.
+        this.clearCooldown();
         const COOLDOWN_MS = 1300;
         const startTime = performance.now();
 
@@ -177,30 +173,39 @@ export class HUD {
                 this.enableResume();
             } else {
                 const seconds = (remaining / 1000).toFixed(1);
-                this.resumeButton.textContent = `RESUME (${seconds}s)`;
+                this.resumeButton.textContent =
+                    `RESUME (${seconds}s)`;
             }
         };
 
         updateButtonState();
+
         this.cooldownInterval = window.setInterval(updateButtonState, 50);
 
         this.resumeButton.onclick = () => {
-            if (this.resumeButton.disabled) return;
+            if (this.resumeButton.disabled) {
+                return;
+            }
+
             this.resumeButton.disabled = true;
             this.resumeButton.textContent = "RESUMING...";
+
             onResume();
         };
     }
 
     enableResume() {
         this.clearCooldown();
+
         this.resumeButton.disabled = false;
         this.resumeButton.textContent = "RESUME";
     }
 
     hidePaused() {
         this.clearCooldown();
+
         this.pauseElement.style.display = "none";
+
         this.resumeButton.disabled = false;
         this.resumeButton.textContent = "RESUME";
     }
@@ -214,14 +219,8 @@ export class HUD {
     }
 
     refreshCrosshair() {
-        const crosshairProfile =
-            parseValorantCrosshairCodeSafe(
-                userconfig.crosshairCode
-            );
+        const crosshairProfile = parseValorantCrosshairCodeSafe(userconfig.crosshairCode);
 
-        renderCrosshair(
-            this.crosshairCanvas,
-            crosshairProfile
-        );
+        renderCrosshair(this.crosshairCanvas, crosshairProfile);
     }
 }
