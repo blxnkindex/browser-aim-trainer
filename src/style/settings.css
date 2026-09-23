@@ -1,0 +1,193 @@
+
+/* =========================================================
+   SETTINGS
+   ========================================================= */
+
+#settings {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    background: var(--color-background);
+    color: var(--color-text);
+
+    z-index: 100;
+
+    padding: var(--space-xl);
+}
+
+#settings h1 {
+    width: min(420px, 100%);
+
+    margin: 0 0 var(--space-xl);
+
+    color: var(--color-text);
+
+    font-size: var(--text-title);
+    font-weight: 600;
+
+    letter-spacing: 0.12em;
+}
+
+/* Labels */
+
+#settings label {
+    width: min(420px, 100%);
+
+    margin-bottom: var(--space-xs);
+
+    color: var(--color-text-dim);
+
+    font-size: var(--text-small);
+    font-weight: 600;
+
+    letter-spacing: 0.14em;
+
+    text-transform: uppercase;
+}
+
+/* Text / number inputs */
+
+#settings input[type="number"],
+#settings input[type="text"] {
+    width: min(420px, 100%);
+    height: 42px;
+
+    margin-bottom: var(--space-md);
+    padding: 0 var(--space-md);
+
+    background: var(--color-surface);
+    color: var(--color-text);
+
+    border: 1px solid var(--color-border);
+    border-radius: 0;
+
+    font-family: var(--font-ui);
+    font-size: var(--text-normal);
+
+    letter-spacing: 0.04em;
+}
+
+#settings input[type="number"]:hover,
+#settings input[type="text"]:hover {
+    border-color: var(--color-border-bright);
+}
+
+#settings input[type="number"]:focus-visible,
+#settings input[type="text"]:focus-visible {
+    outline: 1px solid var(--color-primary);
+    outline-offset: 3px;
+}
+
+/* Placeholder */
+
+#settings input::placeholder {
+    color: var(--color-text-faint);
+}
+/* Target colour */
+
+.target-color-controls {
+    width: min(420px, 100%);
+    height: 42px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-sm);
+    margin-top: 0;
+    margin-bottom: var(--space-md);
+}
+
+#settings .target-color-preset {
+    width: 100%;
+    height: 42px;
+    min-height: 42px;
+    margin: 0;
+    padding: 0;
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: 0;
+    font-family: var(--font-ui);
+    font-size: var(--text-small);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+}
+
+.target-color-preset:hover {
+    border-color: var(--color-border-bright);
+}
+
+.target-color-preset:focus-visible {
+    outline: 1px solid var(--color-primary);
+    outline-offset: 3px;
+}
+
+.target-color-custom {
+    background: var(--color-surface);
+    color: var(--color-text-dim);
+}
+
+#settings .target-color-preset:nth-child(2) {
+    color: #000;
+}
+
+.target-color-custom:hover {
+    background: var(--color-surface-raised);
+    color: var(--color-text);
+}
+
+/* Crosshair label contains its own input in the current TS */
+
+#settings label input[type="text"] {
+    display: block;
+
+    margin-top: var(--space-sm);
+    margin-bottom: 0;
+}
+
+/* Back */
+
+#settings button {
+    width: min(420px, 100%);
+    min-height: 42px;
+
+    margin-top: var(--space-md);
+    padding: 0 var(--space-md);
+
+    background: var(--color-surface);
+    color: var(--color-text-dim);
+
+    border: 1px solid var(--color-border);
+    border-radius: 0;
+
+    font-family: var(--font-ui);
+    font-size: var(--text-normal);
+    font-weight: 600;
+
+    letter-spacing: 0.1em;
+
+    cursor: pointer;
+
+    transition:
+        border-color 120ms ease,
+        color 120ms ease,
+        background 120ms ease;
+}
+
+#settings button:hover {
+    border-color: var(--color-border-bright);
+
+    color: var(--color-text);
+
+    background: var(--color-surface-raised);
+}
+
+#settings button:focus-visible {
+    outline: 1px solid var(--color-primary);
+    outline-offset: 3px;
+}

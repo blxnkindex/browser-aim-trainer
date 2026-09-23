@@ -1,0 +1,215 @@
+/* =========================================================
+   MAIN MENU
+   ========================================================= */
+
+#menu {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    background: var(--color-background);
+
+    color: var(--color-text);
+
+    z-index: 100;
+
+    padding: var(--space-xl);
+}
+
+/*
+ * Main menu content is deliberately narrow.
+ * This gives the interface a piece of equipment / console
+ * feeling rather than a generic fullscreen game menu.
+ */
+.menu-header {
+    width: min(420px, 100%);
+
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: var(--space-xl);
+}
+
+.menu-eyebrow {
+    margin-bottom: var(--space-sm);
+
+    color: var(--color-text-dim);
+
+    font-size: var(--text-small);
+    font-weight: 600;
+
+    letter-spacing: 0.16em;
+}
+
+.menu-header h1 {
+    margin: 0;
+
+    color: var(--color-text);
+
+    font-size: var(--text-title);
+    font-weight: 600;
+
+    letter-spacing: 0.12em;
+}
+
+/*
+ * Small system state indicator beneath the title.
+ */
+.menu-status {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+
+    margin-top: var(--space-md);
+
+    color: var(--color-text-dim);
+
+    font-size: var(--text-small);
+    letter-spacing: 0.12em;
+}
+
+.menu-status-indicator {
+    width: 6px;
+    height: 6px;
+
+    background: var(--color-primary);
+
+    box-shadow: 0 0 8px rgba(125, 255, 154, 0.35);
+}
+
+/* =========================================================
+   SCENARIO
+   ========================================================= */
+
+.menu-section {
+    width: min(420px, 100%);
+
+    display: flex;
+    flex-direction: column;
+
+    gap: var(--space-sm);
+
+    margin-bottom: var(--space-lg);
+}
+
+.ui-label {
+    color: var(--color-text-dim);
+
+    font-size: var(--text-small);
+    font-weight: 600;
+
+    letter-spacing: 0.14em;
+}
+
+.ui-select {
+    width: 100%;
+    height: 42px;
+
+    padding: 0 var(--space-md);
+
+    appearance: none;
+
+    cursor: pointer;
+
+    letter-spacing: 0.06em;
+}
+
+.ui-select:hover {
+    border-color: var(--color-border-bright);
+}
+
+.ui-select:focus-visible {
+    outline: 1px solid var(--color-primary);
+    outline-offset: 3px;
+}
+
+/* =========================================================
+   ACTIONS
+   ========================================================= */
+
+.menu-actions {
+    width: min(420px, 100%);
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: var(--space-sm);
+}
+
+.ui-button {
+    min-height: 42px;
+
+    border: 1px solid var(--color-border);
+
+    background: var(--color-surface);
+
+    color: var(--color-text);
+
+    padding: 0 var(--space-md);
+
+    cursor: pointer;
+
+    font-family: var(--font-ui);
+    font-size: var(--text-normal);
+    font-weight: 600;
+
+    letter-spacing: 0.1em;
+
+    transition:
+        border-color 120ms ease,
+        color 120ms ease,
+        background 120ms ease;
+}
+
+.ui-button:hover {
+    border-color: var(--color-border-bright);
+
+    color: var(--color-primary);
+
+    background: var(--color-surface-raised);
+}
+
+.ui-button:focus-visible {
+    outline: 1px solid var(--color-primary);
+    outline-offset: 3px;
+}
+
+.ui-button-primary {
+    border-color: var(--color-primary-dim);
+
+    color: var(--color-primary);
+}
+
+.ui-button-primary:hover {
+    border-color: var(--color-primary);
+
+    background: var(--color-surface-raised);
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.menu-footer {
+    width: min(420px, 100%);
+
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: var(--space-xl);
+
+    padding-top: var(--space-sm);
+
+    border-top: 1px solid var(--color-border);
+
+    color: var(--color-text-faint);
+
+    font-size: var(--text-small);
+
+    letter-spacing: 0.1em;
+}

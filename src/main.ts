@@ -1,6 +1,11 @@
 import * as T from "three";
 
 import "./style.css";
+import "./style/hud.css";
+import "./style/menu.css";
+import "./style/scenario.css";
+import "./style/settings.css";
+import "./style/skins.css";
 
 import { Score } from "./sys/Score";
 import { Camera } from "./player/Camera";
