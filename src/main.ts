@@ -15,6 +15,10 @@ import { SettingsMenu } from "./ui/Settings";
 import { userconfig } from "./config/UserConfig";
 import { Environment } from "./environment/Environment";
 import { box } from "./environment/definitions";
+import { Weapon } from "./weapon/Weapon";
+import { Skin } from "./weapon/Skin";
+import { SkinCatalog } from "./weapon/SkinCatalog";
+import { SkinSelector } from "./ui/SkinSettings";
 
 const canvas = document.querySelector<HTMLCanvasElement>("#game");
 
@@ -35,6 +39,40 @@ const aspect = window.innerWidth / window.innerHeight;
 const camera = new T.PerspectiveCamera(valorantVFOV(aspect), aspect, 0.1, 1000);
 const cameraController = new Camera(camera);
 scene.add(cameraController.object);
+
+const weapon = new Weapon();
+const skinCatalog = new SkinCatalog();
+let currentSkin = null as Skin | null;
+let skinSelector: SkinSelector;
+
+skinCatalog.load()
+    .then(() => {
+        const warden = skinCatalog.getById("warden");
+
+        if (!warden) {
+            throw new Error("Warden skin was not found.");
+        }
+
+        currentSkin = warden;
+        weapon.equipSkin(warden);
+        weapon.show();
+
+        skinSelector = new SkinSelector(
+            skinCatalog,
+            currentSkin,
+            (skin) => {
+                currentSkin = skin;
+                weapon.equipSkin(skin);
+            },
+            () => {
+                skinSelector.hide();
+                settings.show();
+            }
+        );
+    })
+    .catch((error) => {
+        console.error("Failed to load skin catalog:", error);
+    });
 
 let scenario: Scenario | null = null;
 let score: Score | null = null;
@@ -177,10 +215,18 @@ const menu = new MainMenu(
     }
 );
 
-const settings = new SettingsMenu(() => {
-    settings.hide();
-    menu.show();
-});
+const settings = new SettingsMenu(
+    () => {
+        settings.hide();
+        menu.show();
+    },
+    () => {
+        settings.hide();
+        if (skinSelector) {
+            skinSelector.show(currentSkin);
+        }
+    }
+);
 
 document.addEventListener("pointerlockchange", () => {
         if (!scenario || !hud) {
@@ -239,17 +285,29 @@ canvas.addEventListener("mousedown", () => {
         return;
     }
 
+    weapon.fire();
     const hit = hitDetection.check(scenario.activeTargets.map(target => target.mesh));
-
     if (hit) {
-        const hitTarget = scenario.activeTargets.find(target => target.mesh === hit);
+        const hitTarget = scenario.activeTargets.find(
+            target => target.mesh === hit
+        );
 
         if (hitTarget) {
-            score.recordShot(true, performance.now() - hitTarget.spawnedAt);
+            score.recordShot(
+                true,
+                performance.now() - hitTarget.spawnedAt
+            );
+
+            weapon.playHitSound();
+
             hitTarget.spawn();
+        } else {
+            score.recordShot(false, 0);
+            weapon.resetHitSoundSequence();
         }
     } else {
         score.recordShot(false, 0);
+        weapon.resetHitSoundSequence();
     }
 });
 

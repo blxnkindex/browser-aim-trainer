@@ -8,7 +8,7 @@ export class SettingsMenu {
     private sensitivityInput: HTMLInputElement;
     private targetColorInput: HTMLInputElement;
 
-    constructor(onBack: () => void) {
+    constructor(onBack: () => void, onSkins: () => void) {
         this.element = document.createElement("div");
         this.element.id = "settings";
 
@@ -23,8 +23,7 @@ export class SettingsMenu {
         this.sensitivityInput.type = "number";
         this.sensitivityInput.step = "0.01";
         this.sensitivityInput.min = "0.01";
-        this.sensitivityInput.value =
-            userconfig.sensitivity.toString();
+        this.sensitivityInput.value = userconfig.sensitivity.toString();
 
         this.sensitivityInput.addEventListener("change", () => {
             const value = Number(this.sensitivityInput.value);
@@ -61,6 +60,12 @@ export class SettingsMenu {
 
         crosshairLabel.appendChild(crosshairInput);
 
+        const skinsButton = document.createElement("button");
+        skinsButton.textContent = "SKINS";
+        skinsButton.addEventListener("click", () => {
+            onSkins();
+        });
+
         // Back
         const backButton = document.createElement("button");
         backButton.textContent = "BACK";
@@ -78,6 +83,7 @@ export class SettingsMenu {
         this.element.appendChild(this.targetColorInput);
         this.element.appendChild(crosshairLabel);
         this.element.appendChild(crosshairInput);
+        this.element.appendChild(skinsButton);
         this.element.appendChild(backButton);
         document.body.appendChild(this.element);
         this.hide();
