@@ -18,7 +18,7 @@ import { box } from "./environment/definitions";
 import { Weapon } from "./weapon/Weapon";
 import { Skin } from "./weapon/Skin";
 import { SkinCatalog } from "./weapon/SkinCatalog";
-import { SkinSelector } from "./ui/SkinSettings";
+import { SkinSettings } from "./ui/SkinSettings";
 
 const canvas = document.querySelector<HTMLCanvasElement>("#game");
 
@@ -43,7 +43,7 @@ scene.add(cameraController.object);
 const weapon = new Weapon();
 const skinCatalog = new SkinCatalog();
 let currentSkin = null as Skin | null;
-let skinSelector: SkinSelector;
+let skinSettings: SkinSettings;
 
 skinCatalog.load()
     .then(() => {
@@ -57,7 +57,7 @@ skinCatalog.load()
         weapon.equipSkin(warden);
         weapon.show();
 
-        skinSelector = new SkinSelector(
+        skinSettings = new SkinSettings(
             skinCatalog,
             currentSkin,
             (skin) => {
@@ -65,7 +65,7 @@ skinCatalog.load()
                 weapon.equipSkin(skin);
             },
             () => {
-                skinSelector.hide();
+                skinSettings.hide();
                 settings.show();
             }
         );
@@ -222,8 +222,8 @@ const settings = new SettingsMenu(
     },
     () => {
         settings.hide();
-        if (skinSelector) {
-            skinSelector.show(currentSkin);
+        if (SkinSettings) {
+            skinSettings.show(currentSkin);
         }
     }
 );

@@ -1,7 +1,7 @@
 import { Skin } from "../weapon/Skin";
 import { SkinCatalog } from "../weapon/SkinCatalog";
 
-export class SkinSelector {
+export class SkinSettings {
     private element: HTMLDivElement;
 
     private currentImage: HTMLImageElement;
