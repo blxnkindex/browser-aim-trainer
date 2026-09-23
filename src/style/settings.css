@@ -84,6 +84,12 @@
     outline-offset: 3px;
 }
 
+#settings .target-color-preset.selected,
+#settings .crosshair-preset.selected {
+    border-color: var(--color-primary);
+    box-shadow: inset 0 0 0 1px var(--color-primary);
+}
+
 /* Placeholder */
 
 #settings input::placeholder {
@@ -190,4 +196,64 @@
 #settings button:focus-visible {
     outline: 1px solid var(--color-primary);
     outline-offset: 3px;
+}
+
+.crosshair-presets {
+    width: min(420px, 100%);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+}
+
+#settings .crosshair-preset {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0;
+    cursor: pointer;
+}
+
+.crosshair-preset:hover {
+    border-color: var(--color-border-bright);
+}
+
+.crosshair-preset:focus-visible {
+    outline: 1px solid var(--color-primary);
+    outline-offset: 3px;
+}
+
+.crosshair-preset-preview {
+    position: absolute;
+    inset: 0;
+    background-image: url("/assets/xhairs/background.webp");
+    background-size: cover;
+    background-position: center;
+}
+
+.crosshair-preset-preview img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.crosshair-preset-name {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: var(--space-sm);
+    background: rgb(0 0 0 / 70%);
+    color: var(--color-text);
+    font-size: var(--text-small);
+    font-weight: 600;
+    letter-spacing: 0.1em;
 }

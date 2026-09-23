@@ -1,5 +1,5 @@
 import * as T from "three";
-import { userconfig } from "../config/UserConfig";
+import { userConfig } from "../config/UserConfig";
 import { VALORANT_YAW } from "../config/Valorant";
 
 
@@ -32,7 +32,7 @@ export class Camera {
 private moveMouse = (event: MouseEvent) => {
     if (document.pointerLockElement === null) return;
 
-    const radiansPerCount = (VALORANT_YAW * userconfig.sensitivity * Math.PI) / 180;
+    const radiansPerCount = (VALORANT_YAW * userConfig.sensitivity * Math.PI) / 180;
 
     this.yaw -= event.movementX * radiansPerCount;
     this.pitch -= event.movementY * radiansPerCount;

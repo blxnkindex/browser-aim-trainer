@@ -1,4 +1,5 @@
-import { userconfig, saveConfig } from "../config/UserConfig";
+import { userConfig, saveConfig } from "../config/UserConfig";
+import { crosshairPresets } from "../config/Crosshair"
 
 export class SettingsMenu {
     private element: HTMLDivElement;
@@ -20,18 +21,19 @@ export class SettingsMenu {
         this.sensitivityInput.type = "number";
         this.sensitivityInput.step = "0.01";
         this.sensitivityInput.min = "0.01";
-        this.sensitivityInput.value = userconfig.sensitivity.toString();
+        this.sensitivityInput.value = userConfig.sensitivity.toString();
 
         this.sensitivityInput.addEventListener("change", () => {
             const value = Number(this.sensitivityInput.value);
 
             if (Number.isFinite(value) && value > 0) {
-                userconfig.sensitivity = value;
+                userConfig.sensitivity = value;
             } else {
                 this.sensitivityInput.value =
-                    userconfig.sensitivity.toString();
+                    userConfig.sensitivity.toString();
             }
         });
+
         // Target colour
         const targetColorLabel = document.createElement("label");
         targetColorLabel.textContent = "Target Colour";
@@ -47,7 +49,7 @@ export class SettingsMenu {
 
         this.targetColorInput = document.createElement("input");
         this.targetColorInput.type = "color";
-        this.targetColorInput.value = userconfig.targetColor;
+        this.targetColorInput.value = userConfig.targetColor;
         this.targetColorInput.style.display = "none";
 
         for (const option of targetColorOptions) {
@@ -58,8 +60,14 @@ export class SettingsMenu {
             preset.style.backgroundColor = option.color;
 
             preset.addEventListener("click", () => {
-                userconfig.targetColor = option.color;
+                userConfig.targetColor = option.color;
                 this.targetColorInput.value = option.color;
+
+                targetColorControls
+                    .querySelectorAll(".target-color-preset")
+                    .forEach((element) => element.classList.remove("selected"));
+
+                preset.classList.add("selected");
             });
 
             targetColorControls.appendChild(preset);
@@ -73,14 +81,27 @@ export class SettingsMenu {
 
         customColorButton.addEventListener("click", () => {
             this.targetColorInput.click();
+
+            targetColorControls
+                .querySelectorAll(".target-color-preset")
+                .forEach((element) => element.classList.remove("selected"));
+
+            customColorButton.classList.add("selected");
         });
 
         this.targetColorInput.addEventListener("input", () => {
-            userconfig.targetColor = this.targetColorInput.value;
+            userConfig.targetColor = this.targetColorInput.value;
+
+            targetColorControls
+                .querySelectorAll(".target-color-preset")
+                .forEach((element) => element.classList.remove("selected"));
+
+            customColorButton.classList.add("selected");
         });
 
         targetColorControls.appendChild(customColorButton);
         targetColorControls.appendChild(this.targetColorInput);
+
         // Crosshair
         const crosshairLabel = document.createElement("label");
         crosshairLabel.textContent = "Crosshair Code";
@@ -88,7 +109,45 @@ export class SettingsMenu {
         const crosshairInput = document.createElement("input");
         crosshairInput.type = "text";
         crosshairInput.placeholder = "Paste Valorant crosshair code";
-        crosshairInput.value = userconfig.crosshairCode;
+        crosshairInput.value = userConfig.crosshairCode;
+
+        const crosshairPresetsContainer = document.createElement("div");
+        crosshairPresetsContainer.className = "crosshair-presets";
+
+        for (const preset of crosshairPresets) {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "crosshair-preset";
+
+            const preview = document.createElement("div");
+            preview.className = "crosshair-preset-preview";
+
+            const image = document.createElement("img");
+            image.src = preset.image;
+            image.alt = preset.name;
+
+            preview.appendChild(image);
+
+            const name = document.createElement("div");
+            name.className = "crosshair-preset-name";
+            name.textContent = preset.name;
+
+            button.appendChild(preview);
+            button.appendChild(name);
+
+            button.addEventListener("click", () => {
+                userConfig.crosshairCode = preset.code;
+                crosshairInput.value = preset.code;
+
+                crosshairPresetsContainer
+                    .querySelectorAll(".crosshair-preset")
+                    .forEach((element) => element.classList.remove("selected"));
+
+                button.classList.add("selected");
+            });
+
+            crosshairPresetsContainer.appendChild(button);
+        }
 
         // Skins
         const skinsButton = document.createElement("button");
@@ -103,7 +162,7 @@ export class SettingsMenu {
         backButton.textContent = "BACK";
 
         backButton.addEventListener("click", () => {
-            userconfig.crosshairCode = crosshairInput.value.trim();
+            userConfig.crosshairCode = crosshairInput.value.trim();
 
             saveConfig();
             onBack();
@@ -120,6 +179,10 @@ export class SettingsMenu {
         this.element.appendChild(crosshairLabel);
         this.element.appendChild(crosshairInput);
 
+        this.element.appendChild(crosshairLabel);
+        this.element.appendChild(crosshairInput);
+        this.element.appendChild(crosshairPresetsContainer);
+
         this.element.appendChild(skinsButton);
         this.element.appendChild(backButton);
 
@@ -130,10 +193,10 @@ export class SettingsMenu {
 
     show() {
         this.sensitivityInput.value =
-            userconfig.sensitivity.toString();
+            userConfig.sensitivity.toString();
 
         this.targetColorInput.value =
-            userconfig.targetColor;
+            userConfig.targetColor;
 
         this.element.style.display = "flex";
     }

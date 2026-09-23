@@ -496,3 +496,21 @@ export function createCrosshairCanvas(size = 128): HTMLCanvasElement {
 
     return canvas;
 }
+
+export const crosshairPresets = [
+    {
+        name: "DOT",
+        image: "/assets/xhairs/dot.png",
+        code: "0;P;d;1;f;0;0t;4;0l;1;0o;0;0a;1;0f;0;1b;0",
+    },
+    {
+        name: "TENZ",
+        image: "/assets/xhairs/tenz.png",
+        code: "0;s;1;P;c;5;h;0;m;1;0l;4;0o;2;0a;1;0f;0;1b;0;S;c;4;o;1",
+    },
+    {
+        name: "YAY",
+        image: "/assets/xhairs/yay.png",
+        code: "0;P;h;0;f;0;0l;4;0o;0;0a;1;0f;0;1b;0",
+    },
+];

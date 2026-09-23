@@ -1,7 +1,7 @@
 import { Scenario } from "../scenarios/Scenario";
 import { Score } from "../sys/Score";
 import { parseValorantCrosshairCodeSafe, renderCrosshair } from "../config/Crosshair";
-import { userconfig } from "../config/UserConfig";
+import { userConfig } from "../config/UserConfig";
 
 export class HUD {
     private timerElement: HTMLDivElement;
@@ -98,7 +98,7 @@ export class HUD {
         this.scenario = scenario;
         this.score = score;
 
-        const crosshairProfile = parseValorantCrosshairCodeSafe(userconfig.crosshairCode);
+        const crosshairProfile = parseValorantCrosshairCodeSafe(userConfig.crosshairCode);
         renderCrosshair(this.crosshairCanvas, crosshairProfile);
     }
 
@@ -219,7 +219,7 @@ export class HUD {
     }
 
     refreshCrosshair() {
-        const crosshairProfile = parseValorantCrosshairCodeSafe(userconfig.crosshairCode);
+        const crosshairProfile = parseValorantCrosshairCodeSafe(userConfig.crosshairCode);
 
         renderCrosshair(this.crosshairCanvas, crosshairProfile);
     }

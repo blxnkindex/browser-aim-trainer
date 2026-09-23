@@ -6,7 +6,9 @@ export class Weapon {
     private skin: Skin | null = null;
     private clickAudio: HTMLAudioElement | null = null;
     private hitAudios: HTMLAudioElement[] = [];
+    private sfxVolume = 50;
 
+    private leftHanded = false;
     private nextHitSoundIndex = 0;
 
     constructor() {
@@ -26,10 +28,7 @@ export class Weapon {
 
         this.element.src = this.toAssetUrl(skin.uiImgUrl);
 
-        this.element.style.transform = [
-            `translate(${skin.offsetX}px, ${skin.offsetY}px)`,
-            `scale(${skin.scale})`,
-        ].join(" ");
+        this.updateTransform();
 
         this.clickAudio = new Audio(
             this.toAssetUrl(skin.clickSoundUrl)
@@ -38,6 +37,12 @@ export class Weapon {
         this.hitAudios = skin.hitSoundUrls
             .filter((url) => url.length > 0)
             .map((url) => new Audio(this.toAssetUrl(url)));
+
+        this.hitAudios = skin.hitSoundUrls
+            .filter((url) => url.length > 0)
+            .map((url) => new Audio(this.toAssetUrl(url)));
+
+        this.setSfxVolume(this.sfxVolume);
     }
 
     fire(): void {
@@ -86,6 +91,20 @@ export class Weapon {
         return this.element;
     }
 
+    setSfxVolume(volume: number): void {
+        this.sfxVolume = Math.max(0, Math.min(100, volume));
+
+        const volumeValue = this.sfxVolume / 100;
+
+        if (this.clickAudio) {
+            this.clickAudio.volume = volumeValue;
+        }
+
+        for (const audio of this.hitAudios) {
+            audio.volume = volumeValue;
+        }
+    }
+
     private playClickSound(): void {
         if (!this.clickAudio) {
             return;
@@ -102,4 +121,19 @@ export class Weapon {
 
         return `/${path}`;
     }
+    
+    private updateTransform(): void {
+    if (!this.skin) {
+        return;
+    }
+
+    const scaleX = this.leftHanded
+        ? -this.skin.scale
+        : this.skin.scale;
+
+    this.element.style.transform = [
+        `translate(${this.skin.offsetX}px, ${this.skin.offsetY}px)`,
+        `scale(${scaleX}, ${this.skin.scale})`,
+    ].join(" ");
+}
 }

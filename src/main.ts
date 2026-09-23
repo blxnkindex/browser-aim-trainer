@@ -17,7 +17,7 @@ import { MainMenu } from "./ui/MainMenu";
 import { ScenarioSettings } from "./ui/ScenarioSettings";
 import { valorantVFOV } from "./config/Valorant";
 import { SettingsMenu } from "./ui/Settings";
-import { userconfig } from "./config/UserConfig";
+import { userConfig, saveConfig } from "./config/UserConfig";
 import { Environment } from "./environment/Environment";
 import { box } from "./environment/definitions";
 import { Weapon } from "./weapon/Weapon";
@@ -52,21 +52,32 @@ let skinSettings: SkinSettings;
 
 skinCatalog.load()
     .then(() => {
-        const warden = skinCatalog.getById("warden");
+        const savedSkin = userConfig.skinId
+            ? skinCatalog.getById(userConfig.skinId)
+            : null;
 
-        if (!warden) {
+        const defaultSkin = skinCatalog.getById("warden");
+
+        if (!defaultSkin) {
             throw new Error("Warden skin was not found.");
         }
 
-        currentSkin = warden;
-        weapon.equipSkin(warden);
-        weapon.show();
+        currentSkin = savedSkin ?? defaultSkin;
+        weapon.equipSkin(currentSkin);
+        weapon.setLeftHanded(userConfig.leftHanded);
+        if (userConfig.showViewmodel) {
+            weapon.show();
+        } else {
+            weapon.hide();
+        }
 
         skinSettings = new SkinSettings(
             skinCatalog,
             currentSkin,
             (skin) => {
                 currentSkin = skin;
+                userConfig.skinId = skin.id;
+                saveConfig();
                 weapon.equipSkin(skin);
             },
             () => {
@@ -174,7 +185,7 @@ let currentConfig: ScenarioConfig | null = null;
 const startGame = async (config: ScenarioConfig) => {
     currentConfig = config;
 
-    scenario = scenario = new Scenario(scene,config,userconfig.targetColor);
+    scenario = scenario = new Scenario(scene,config,userConfig.targetColor);
     score = new Score();
     hitDetection = new HitDetection(camera);
 
