@@ -10,7 +10,7 @@
     object-fit: fill;
     pointer-events: none;
     z-index: 4;
-    transform-origin: 70% 85%;
+    transform-origin: 50% 85%;
     display: none;
 }
 

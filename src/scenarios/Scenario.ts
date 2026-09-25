@@ -44,7 +44,7 @@ export class Scenario {
         this.state = "running";
         for (const target of this.targets) {
             target.mesh.visible = true;
-            target.spawn();
+            target.spawn(0);
         }
     }
 

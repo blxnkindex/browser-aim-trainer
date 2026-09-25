@@ -31,26 +31,40 @@ if (!canvas) {
     throw new Error("Game canvas not found");
 }
 
-const renderer = new T.WebGLRenderer({canvas, antialias: true,});
+const renderer = new T.WebGLRenderer({
+    canvas,
+    antialias: true,
+});
+
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-renderer.setSize(window.innerWidth,window.innerHeight);
+renderer.setSize(window.innerWidth, window.innerHeight);
 
 const scene = new T.Scene();
 scene.background = new T.Color(0x111111);
+
 const environment = new Environment(box);
 scene.add(environment.object);
 
 const aspect = window.innerWidth / window.innerHeight;
-const camera = new T.PerspectiveCamera(valorantVFOV(aspect), aspect, 0.1, 1000);
+
+const camera = new T.PerspectiveCamera(
+    valorantVFOV(aspect),
+    aspect,
+    0.1,
+    1000
+);
+
 const cameraController = new Camera(camera);
 scene.add(cameraController.object);
 
 const weapon = new Weapon();
 const skinCatalog = new SkinCatalog();
-let currentSkin = null as Skin | null;
-let skinSettings: SkinSettings;
 
-skinCatalog.load()
+let currentSkin: Skin | null = null;
+let skinSettings: SkinSettings | null = null;
+
+skinCatalog
+    .load()
     .then(() => {
         const savedSkin = userConfig.skinId
             ? skinCatalog.getById(userConfig.skinId)
@@ -63,13 +77,9 @@ skinCatalog.load()
         }
 
         currentSkin = savedSkin ?? defaultSkin;
+
         weapon.equipSkin(currentSkin);
         weapon.setLeftHanded(userConfig.leftHanded);
-        if (userConfig.showViewmodel) {
-            weapon.show();
-        } else {
-            weapon.hide();
-        }
 
         skinSettings = new SkinSettings(
             skinCatalog,
@@ -79,9 +89,10 @@ skinCatalog.load()
                 userConfig.skinId = skin.id;
                 saveConfig();
                 weapon.equipSkin(skin);
+                weapon.setLeftHanded(userConfig.leftHanded);
             },
             () => {
-                skinSettings.hide();
+                skinSettings?.hide();
                 settings.show();
             }
         );
@@ -125,7 +136,8 @@ const requestLock = async (): Promise<boolean> => {
                 return false;
             }
         }
-        console.warn("Pointer lock request failed:",err);
+
+        console.warn("Pointer lock request failed:", err);
         return false;
     }
 };
@@ -136,6 +148,13 @@ const startScenario = async () => {
     }
 
     score.reset();
+
+    if (userConfig.showViewmodel) {
+        weapon.show();
+    } else {
+        weapon.hide();
+    }
+
     scenario.start();
 
     const locked = await requestLock();
@@ -143,6 +162,7 @@ const startScenario = async () => {
     if (!locked) {
         console.warn("Failed to lock pointer");
     }
+
     hud.hideResults();
 };
 
@@ -154,6 +174,7 @@ const pauseScenario = () => {
     if (!scenario.isActive) {
         return;
     }
+
     scenario.pause();
     hud.showPaused(resumeScenario);
 };
@@ -165,9 +186,12 @@ const exitScenario = () => {
 
     score.reset();
     document.exitPointerLock();
+
     scenario.end();
+
     hud.hidePaused();
     hud.hideResults();
+
     menu.show();
 };
 
@@ -182,10 +206,16 @@ const resumeScenario = () => {
 type ScenarioId = keyof typeof scenarios;
 
 let currentConfig: ScenarioConfig | null = null;
+
 const startGame = async (config: ScenarioConfig) => {
     currentConfig = config;
 
-    scenario = scenario = new Scenario(scene,config,userConfig.targetColor);
+    scenario = new Scenario(
+        scene,
+        config,
+        userConfig.targetColor
+    );
+
     score = new Score();
     hitDetection = new HitDetection(camera);
 
@@ -198,7 +228,10 @@ const startGame = async (config: ScenarioConfig) => {
                     startGame(currentConfig);
                 }
             },
-            exitScenario
+            exitScenario,
+            (volume) => {
+                weapon.setSfxVolume(volume);
+            }
         );
     } else {
         hud.setScenario(scenario, score);
@@ -219,6 +252,26 @@ const configMenu = new ScenarioSettings(
     }
 );
 
+const settings = new SettingsMenu(
+    () => {
+        settings.hide();
+        menu.show();
+    },
+    () => {
+        settings.hide();
+
+        if (skinSettings && currentSkin) {
+            skinSettings.show(currentSkin);
+        }
+    },
+    (volume) => {
+        weapon.setSfxVolume(volume);
+    },
+    (leftHanded) => {
+        weapon.setLeftHanded(leftHanded);
+    }
+);
+
 const menu = new MainMenu(
     scenarios,
     (id) => {
@@ -231,49 +284,34 @@ const menu = new MainMenu(
     }
 );
 
-const settings = new SettingsMenu(
-    () => {
-        settings.hide();
-        menu.show();
-    },
-    () => {
-        settings.hide();
-        if (SkinSettings) {
-            skinSettings.show(currentSkin);
-        }
-    }
-);
-
 document.addEventListener("pointerlockchange", () => {
-        if (!scenario || !hud) {
-            return;
-        }
-
-        if (document.pointerLockElement !== null) {
-            if (scenario.currentState === "paused") {
-                scenario.resume();
-            }
-
-            hud.hidePaused();
-            return;
-        }
-
-        if (scenario.currentState === "running") {
-            pauseScenario();
-        }
+    if (!scenario || !hud) {
+        return;
     }
-);
+
+    if (document.pointerLockElement !== null) {
+        if (scenario.currentState === "paused") {
+            scenario.resume();
+        }
+
+        hud.hidePaused();
+        return;
+    }
+
+    if (scenario.currentState === "running") {
+        pauseScenario();
+    }
+});
 
 document.addEventListener("pointerlockerror", () => {
-        if (!scenario || !hud) {
-            return;
-        }
-
-        if (scenario.isPaused) {
-            hud.enableResume();
-        }
+    if (!scenario || !hud) {
+        return;
     }
-);
+
+    if (scenario.isPaused) {
+        hud.enableResume();
+    }
+});
 
 window.addEventListener("keydown", (e) => {
     if (!scenario || !hud) {
@@ -302,21 +340,25 @@ canvas.addEventListener("mousedown", () => {
     }
 
     weapon.fire();
-    const hit = hitDetection.check(scenario.activeTargets.map(target => target.mesh));
+
+    const hit = hitDetection.check(
+        scenario.activeTargets.map(
+            (target) => target.mesh
+        )
+    );
+
     if (hit) {
         const hitTarget = scenario.activeTargets.find(
-            target => target.mesh === hit
+            (target) => target.mesh === hit
         );
 
         if (hitTarget) {
-            score.recordShot(
-                true,
-                performance.now() - hitTarget.spawnedAt
-            );
+            const reactionTime = scenario.elapsed - hitTarget.spawnedAt;
+
+            score.recordShot(true, reactionTime);
 
             weapon.playHitSound();
-
-            hitTarget.spawn();
+            hitTarget.spawn(scenario.elapsed);
         } else {
             score.recordShot(false, 0);
             weapon.resetHitSoundSequence();
@@ -332,15 +374,22 @@ window.addEventListener("resize", () => {
 
     camera.aspect = aspect;
     camera.fov = valorantVFOV(aspect);
-
     camera.updateProjectionMatrix();
 
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(
+        window.innerWidth,
+        window.innerHeight
+    );
 });
 
 let lastTimestamp = 0;
+
 function animate(timestamp: number) {
-    const delta = lastTimestamp === 0 ? 0 : (timestamp - lastTimestamp) / 1000;
+    const delta =
+        lastTimestamp === 0
+            ? 0
+            : (timestamp - lastTimestamp) / 1000;
+
     lastTimestamp = timestamp;
 
     if (scenario) {
@@ -351,13 +400,19 @@ function animate(timestamp: number) {
         hud.update(timestamp);
     }
 
-    if (scenario && hud && scenario.finished && scenario.currentState === "running") {
+    if (
+        scenario &&
+        hud &&
+        scenario.finished &&
+        scenario.currentState === "running"
+    ) {
         scenario.end();
         document.exitPointerLock();
         hud.showResults();
     }
 
     renderer.render(scene, camera);
+
     requestAnimationFrame(animate);
 }
 

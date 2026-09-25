@@ -11,7 +11,8 @@
     flex-direction: column;
 
     align-items: center;
-    justify-content: center;
+
+    overflow-y: auto;
 
     background: var(--color-background);
     color: var(--color-text);
@@ -19,6 +20,12 @@
     z-index: 100;
 
     padding: var(--space-xl);
+}
+
+#settings::before,
+#settings::after {
+    content: "";
+    margin: auto;
 }
 
 #settings h1 {
@@ -90,6 +97,11 @@
     box-shadow: inset 0 0 0 1px var(--color-primary);
 }
 
+#settings .target-color-preset.selected:hover,
+#settings .crosshair-preset.selected:hover {
+    border-color: var(--color-primary);
+}
+
 /* Placeholder */
 
 #settings input::placeholder {
@@ -124,11 +136,11 @@
     cursor: pointer;
 }
 
-.target-color-preset:hover {
+#settings .target-color-preset:hover {
     border-color: var(--color-border-bright);
 }
 
-.target-color-preset:focus-visible {
+#settings .target-color-preset:focus-visible {
     outline: 1px solid var(--color-primary);
     outline-offset: 3px;
 }
@@ -256,4 +268,142 @@
     font-size: var(--text-small);
     font-weight: 600;
     letter-spacing: 0.1em;
+}
+
+/* Viewmodel */
+
+.setting-toggle {
+    width: min(420px, 100%);
+    height: 42px;
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--space-md);
+}
+
+.setting-toggle input {
+    display: none;
+}
+
+.setting-toggle span {
+    width: 100%;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--color-surface);
+    color: var(--color-text-dim);
+
+    border: 1px solid var(--color-border);
+    border-radius: 0;
+
+    font-family: var(--font-ui);
+    font-size: var(--text-small);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+
+    cursor: pointer;
+
+    transition:
+        border-color 120ms ease,
+        color 120ms ease,
+        background 120ms ease;
+}
+
+.setting-toggle span:hover {
+    border-color: var(--color-border-bright);
+    color: var(--color-text);
+    background: var(--color-surface-raised);
+}
+
+.setting-toggle input:checked + span {
+    border-color: var(--color-primary);
+    box-shadow: inset 0 0 0 1px var(--color-primary);
+    color: var(--color-text);
+}
+
+
+/* Handedness */
+
+.handedness-controls {
+    width: min(420px, 100%);
+    height: 42px;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
+
+    margin-bottom: var(--space-md);
+}
+
+#settings .handedness-controls button {
+    width: 100%;
+    height: 42px;
+    min-height: 42px;
+
+    margin: 0;
+    padding: 0;
+
+    background: var(--color-surface);
+    color: var(--color-text-dim);
+
+    border: 1px solid var(--color-border);
+    border-radius: 0;
+
+    font-family: var(--font-ui);
+    font-size: var(--text-small);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+}
+
+#settings .handedness-controls button:hover {
+    border-color: var(--color-border-bright);
+    color: var(--color-text);
+    background: var(--color-surface-raised);
+}
+
+#settings .handedness-controls button.active {
+    border-color: var(--color-primary);
+    box-shadow: inset 0 0 0 1px var(--color-primary);
+    color: var(--color-text);
+}
+
+
+/* SFX Volume */
+
+.volume-controls {
+    width: min(420px, 100%);
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+
+    margin-bottom: var(--space-md);
+}
+
+.volume-controls input[type="range"] {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+
+    margin: 0;
+    padding: 0;
+
+    accent-color: var(--color-primary);
+    cursor: pointer;
+}
+
+.volume-controls span {
+    width: 42px;
+    flex-shrink: 0;
+
+    color: var(--color-text-dim);
+
+    font-family: var(--font-ui);
+    font-size: var(--text-small);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
 }

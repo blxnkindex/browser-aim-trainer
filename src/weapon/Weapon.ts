@@ -1,3 +1,4 @@
+import { userConfig } from "../config/UserConfig";
 import { Skin } from "./Skin";
 
 export class Weapon {
@@ -6,7 +7,7 @@ export class Weapon {
     private skin: Skin | null = null;
     private clickAudio: HTMLAudioElement | null = null;
     private hitAudios: HTMLAudioElement[] = [];
-    private sfxVolume = 50;
+    private sfxVolume = userConfig.sfxVolume;
 
     private leftHanded = false;
     private nextHitSoundIndex = 0;
@@ -33,10 +34,6 @@ export class Weapon {
         this.clickAudio = new Audio(
             this.toAssetUrl(skin.clickSoundUrl)
         );
-
-        this.hitAudios = skin.hitSoundUrls
-            .filter((url) => url.length > 0)
-            .map((url) => new Audio(this.toAssetUrl(url)));
 
         this.hitAudios = skin.hitSoundUrls
             .filter((url) => url.length > 0)
@@ -84,7 +81,9 @@ export class Weapon {
     }
 
     setLeftHanded(leftHanded: boolean): void {
+        this.leftHanded = leftHanded;
         this.element.classList.toggle("is-left-hand", leftHanded);
+        this.updateTransform();
     }
 
     get elementRef(): HTMLImageElement {
@@ -121,19 +120,18 @@ export class Weapon {
 
         return `/${path}`;
     }
-    
+
     private updateTransform(): void {
-    if (!this.skin) {
-        return;
+        if (!this.skin) {
+            return;
+        }
+
+        const mirror = this.leftHanded ? -1 : 1;
+
+        this.element.style.transform = [
+            `translate(${this.skin.offsetX}px, ${this.skin.offsetY}px)`,
+            `scale(${this.skin.scale})`,
+            `scaleX(${mirror})`,
+        ].join(" ");
     }
-
-    const scaleX = this.leftHanded
-        ? -this.skin.scale
-        : this.skin.scale;
-
-    this.element.style.transform = [
-        `translate(${this.skin.offsetX}px, ${this.skin.offsetY}px)`,
-        `scale(${scaleX}, ${this.skin.scale})`,
-    ].join(" ");
-}
 }

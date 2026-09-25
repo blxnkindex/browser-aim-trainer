@@ -1,0 +1,1070 @@
+﻿{
+    "skins":  [
+                  {
+                      "id":  "warden",
+                      "name":  "Warden",
+                      "assetFolder":  "warden",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/warden/ui.png",
+                      "thumbUrl":  "assets/skins/warden/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/warden/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/warden/hit_1.mp3",
+                                           "assets/skins/warden/hit_2.mp3",
+                                           "assets/skins/warden/hit_3.mp3",
+                                           "assets/skins/warden/hit_4.mp3",
+                                           "assets/skins/warden/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Warden",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "champions2026",
+                      "name":  "Champions 2026",
+                      "assetFolder":  "champions2026",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/champions2026/ui.png",
+                      "thumbUrl":  "assets/skins/champions2026/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/champions2026/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/champions2026/hit_1.mp3",
+                                           "assets/skins/champions2026/hit_2.mp3",
+                                           "assets/skins/champions2026/hit_3.mp3",
+                                           "assets/skins/champions2026/hit_4.mp3",
+                                           "assets/skins/champions2026/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Phantom",
+                      "variantGroup":  "champions2026",
+                      "variantLabel":  "Dourada",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "champions2026_red",
+                      "name":  "Champions 2026",
+                      "assetFolder":  "champions2026",
+                      "uiFile":  "ui_red.png",
+                      "thumbFile":  "ui_red.png",
+                      "uiImgUrl":  "assets/skins/champions2026/ui_red.png",
+                      "thumbUrl":  "assets/skins/champions2026/ui_red.png",
+                      "clickSoundUrl":  "assets/skins/champions2026/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/champions2026/hit_1.mp3",
+                                           "assets/skins/champions2026/hit_2.mp3",
+                                           "assets/skins/champions2026/hit_3.mp3",
+                                           "assets/skins/champions2026/hit_4.mp3",
+                                           "assets/skins/champions2026/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Phantom",
+                      "variantGroup":  "champions2026",
+                      "variantLabel":  "Vermelha",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "rgx",
+                      "name":  "RGX",
+                      "assetFolder":  "rgx",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/rgx/ui.png",
+                      "thumbUrl":  "assets/skins/rgx/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/rgx/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/rgx/hit_1.mp3",
+                                           "assets/skins/rgx/hit_2.mp3",
+                                           "assets/skins/rgx/hit_3.mp3",
+                                           "assets/skins/rgx/hit_4.mp3",
+                                           "assets/skins/rgx/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "champion2021",
+                      "name":  "champion2021",
+                      "assetFolder":  "champion2021",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/champion2021/ui.png",
+                      "thumbUrl":  "assets/skins/champion2021/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/champion2021/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/champion2021/hit_1.mp3",
+                                           "assets/skins/champion2021/hit_2.mp3",
+                                           "assets/skins/champion2021/hit_3.mp3",
+                                           "assets/skins/champion2021/hit_4.mp3",
+                                           "assets/skins/champion2021/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "primordium",
+                      "name":  "Primordium",
+                      "assetFolder":  "primordium",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/primordium/ui.png",
+                      "thumbUrl":  "assets/skins/primordium/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/primordium/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/primordium/hit_1.mp3",
+                                           "assets/skins/primordium/hit_2.mp3",
+                                           "assets/skins/primordium/hit_3.mp3",
+                                           "assets/skins/primordium/hit_4.mp3",
+                                           "assets/skins/primordium/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "chaos",
+                      "name":  "Chaos",
+                      "assetFolder":  "chaos",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/chaos/ui.png",
+                      "thumbUrl":  "assets/skins/chaos/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/chaos/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/chaos/hit_1.mp3",
+                                           "assets/skins/chaos/hit_2.mp3",
+                                           "assets/skins/chaos/hit_3.mp3",
+                                           "assets/skins/chaos/hit_4.mp3",
+                                           "assets/skins/chaos/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "kuronami",
+                      "name":  "Kuronami",
+                      "assetFolder":  "kuronami",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/kuronami/ui.png",
+                      "thumbUrl":  "assets/skins/kuronami/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/kuronami/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/kuronami/hit_1.mp3",
+                                           "assets/skins/kuronami/hit_2.mp3",
+                                           "assets/skins/kuronami/hit_3.mp3",
+                                           "assets/skins/kuronami/hit_4.mp3",
+                                           "assets/skins/kuronami/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "gaias",
+                      "name":  "Gaias",
+                      "assetFolder":  "gaias",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/gaias/ui.png",
+                      "thumbUrl":  "assets/skins/gaias/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/gaias/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/gaias/hit_1.mp3",
+                                           "assets/skins/gaias/hit_2.mp3",
+                                           "assets/skins/gaias/hit_3.mp3",
+                                           "assets/skins/gaias/hit_4.mp3",
+                                           "assets/skins/gaias/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "aemondir",
+                      "name":  "Aemondir",
+                      "assetFolder":  "aemondir",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/aemondir/ui.png",
+                      "thumbUrl":  "assets/skins/aemondir/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/aemondir/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/aemondir/hit_1.mp3",
+                                           "assets/skins/aemondir/hit_2.mp3",
+                                           "assets/skins/aemondir/hit_3.mp3",
+                                           "assets/skins/aemondir/hit_4.mp3",
+                                           "assets/skins/aemondir/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "aeris",
+                      "name":  "Aeris",
+                      "assetFolder":  "aeris",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/aeris/ui.png",
+                      "thumbUrl":  "assets/skins/aeris/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/aeris/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/aeris/hit_1.mp3",
+                                           "assets/skins/aeris/hit_2.mp3",
+                                           "assets/skins/aeris/hit_3.mp3",
+                                           "assets/skins/aeris/hit_4.mp3",
+                                           "assets/skins/aeris/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "ayakashi",
+                      "name":  "Ayakashi",
+                      "assetFolder":  "ayakashi",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/ayakashi/ui.png",
+                      "thumbUrl":  "assets/skins/ayakashi/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/ayakashi/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/ayakashi/hit_1.mp3",
+                                           "assets/skins/ayakashi/hit_2.mp3",
+                                           "assets/skins/ayakashi/hit_3.mp3",
+                                           "assets/skins/ayakashi/hit_4.mp3",
+                                           "assets/skins/ayakashi/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Ghost",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "blackthorn",
+                      "name":  "Blackthorn",
+                      "assetFolder":  "blackthorn",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/blackthorn/ui.png",
+                      "thumbUrl":  "assets/skins/blackthorn/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/blackthorn/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/blackthorn/hit_1.mp3",
+                                           "assets/skins/blackthorn/hit_2.mp3",
+                                           "assets/skins/blackthorn/hit_3.mp3",
+                                           "assets/skins/blackthorn/hit_4.mp3",
+                                           "assets/skins/blackthorn/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "champion2024",
+                      "name":  "Champion2024",
+                      "assetFolder":  "champion2024",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/champion2024/ui.png",
+                      "thumbUrl":  "assets/skins/champion2024/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/champion2024/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/champion2024/hit_1.mp3",
+                                           "assets/skins/champion2024/hit_2.mp3",
+                                           "assets/skins/champion2024/hit_3.mp3",
+                                           "assets/skins/champion2024/hit_4.mp3",
+                                           "assets/skins/champion2024/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Phantom",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "champions2023",
+                      "name":  "champions2023",
+                      "assetFolder":  "champions2023",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/champions2023/ui.png",
+                      "thumbUrl":  "assets/skins/champions2023/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/champions2023/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/champions2023/hit_1.mp3",
+                                           "assets/skins/champions2023/hit_2.mp3",
+                                           "assets/skins/champions2023/hit_3.mp3",
+                                           "assets/skins/champions2023/hit_4.mp3",
+                                           "assets/skins/champions2023/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "chronovoid",
+                      "name":  "Chrono void",
+                      "assetFolder":  "chronovoid",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/chronovoid/ui.png",
+                      "thumbUrl":  "assets/skins/chronovoid/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/chronovoid/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/chronovoid/hit_1.mp3",
+                                           "assets/skins/chronovoid/hit_2.mp3",
+                                           "assets/skins/chronovoid/hit_3.mp3",
+                                           "assets/skins/chronovoid/hit_4.mp3",
+                                           "assets/skins/chronovoid/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "cryostasis",
+                      "name":  "Cryostasis",
+                      "assetFolder":  "cryostasis",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/cryostasis/ui.png",
+                      "thumbUrl":  "assets/skins/cryostasis/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/cryostasis/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/cryostasis/hit_1.mp3",
+                                           "assets/skins/cryostasis/hit_2.mp3",
+                                           "assets/skins/cryostasis/hit_3.mp3",
+                                           "assets/skins/cryostasis/hit_4.mp3",
+                                           "assets/skins/cryostasis/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "cyrax",
+                      "name":  "Cyrax",
+                      "assetFolder":  "cyrax",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/cyrax/ui.png",
+                      "thumbUrl":  "assets/skins/cyrax/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/cyrax/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/cyrax/hit_1.mp3",
+                                           "assets/skins/cyrax/hit_2.mp3",
+                                           "assets/skins/cyrax/hit_3.mp3",
+                                           "assets/skins/cyrax/hit_4.mp3",
+                                           "assets/skins/cyrax/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "default",
+                      "name":  "Default",
+                      "assetFolder":  "default",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/default/ui.png",
+                      "thumbUrl":  "assets/skins/default/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/default/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/default/hit_1.mp3",
+                                           "assets/skins/default/hit_2.mp3",
+                                           "assets/skins/default/hit_3.mp3",
+                                           "assets/skins/default/hit_4.mp3",
+                                           "assets/skins/default/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "divergence",
+                      "name":  "Divergence",
+                      "assetFolder":  "divergence",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/divergence/ui.png",
+                      "thumbUrl":  "assets/skins/divergence/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/divergence/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/divergence/hit_1.mp3",
+                                           "assets/skins/divergence/hit_2.mp3",
+                                           "assets/skins/divergence/hit_3.mp3",
+                                           "assets/skins/divergence/hit_4.mp3",
+                                           "assets/skins/divergence/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "dolmirs_revenge",
+                      "name":  "dolmirs revenge",
+                      "assetFolder":  "dolmirs_revenge",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/dolmirs_revenge/ui.png",
+                      "thumbUrl":  "assets/skins/dolmirs_revenge/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/dolmirs_revenge/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/dolmirs_revenge/hit_1.mp3",
+                                           "assets/skins/dolmirs_revenge/hit_2.mp3",
+                                           "assets/skins/dolmirs_revenge/hit_3.mp3",
+                                           "assets/skins/dolmirs_revenge/hit_4.mp3",
+                                           "assets/skins/dolmirs_revenge/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "elder",
+                      "name":  "elderflame",
+                      "assetFolder":  "elder",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/elder/ui.png",
+                      "thumbUrl":  "assets/skins/elder/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/elder/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/elder/hit_1.mp3",
+                                           "assets/skins/elder/hit_2.mp3",
+                                           "assets/skins/elder/hit_3.mp3",
+                                           "assets/skins/elder/hit_4.mp3",
+                                           "assets/skins/elder/hit_5.mp3"
+                                       ],
+                      "offsetX":  10,
+                      "offsetY":  6,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "evori_dreamwings",
+                      "name":  "Evori Dreamwings",
+                      "assetFolder":  "evori_dreamwings",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/evori_dreamwings/ui.png",
+                      "thumbUrl":  "assets/skins/evori_dreamwings/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/evori_dreamwings/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/evori_dreamwings/hit_1.mp3",
+                                           "assets/skins/evori_dreamwings/hit_2.mp3",
+                                           "assets/skins/evori_dreamwings/hit_3.mp3",
+                                           "assets/skins/evori_dreamwings/hit_4.mp3",
+                                           "assets/skins/evori_dreamwings/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "forsakenll",
+                      "name":  "forsakenvandal",
+                      "assetFolder":  "forsakenll",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/forsakenll/ui.png",
+                      "thumbUrl":  "assets/skins/forsakenll/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/forsakenll/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/forsakenll/hit_1.mp3",
+                                           "assets/skins/forsakenll/hit_2.mp3",
+                                           "assets/skins/forsakenll/hit_3.mp3",
+                                           "assets/skins/forsakenll/hit_4.mp3",
+                                           "assets/skins/forsakenll/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "glitc",
+                      "name":  "glitchpop",
+                      "assetFolder":  "glitc",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/glitc/ui.png",
+                      "thumbUrl":  "assets/skins/glitc/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/glitc/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/glitc/hit_1.mp3",
+                                           "assets/skins/glitc/hit_2.mp3",
+                                           "assets/skins/glitc/hit_3.mp3",
+                                           "assets/skins/glitc/hit_4.mp3",
+                                           "assets/skins/glitc/hit_5.mp3"
+                                       ],
+                      "offsetX":  11,
+                      "offsetY":  1,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "holo_meridian",
+                      "name":  "holo_meridian",
+                      "assetFolder":  "holo_meridian",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/holo_meridian/ui.png",
+                      "thumbUrl":  "assets/skins/holo_meridian/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/holo_meridian/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/holo_meridian/hit_1.mp3",
+                                           "assets/skins/holo_meridian/hit_2.mp3",
+                                           "assets/skins/holo_meridian/hit_3.mp3",
+                                           "assets/skins/holo_meridian/hit_4.mp3",
+                                           "assets/skins/holo_meridian/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "imperium",
+                      "name":  "Imperium",
+                      "assetFolder":  "imperium",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/imperium/ui.png",
+                      "thumbUrl":  "assets/skins/imperium/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/imperium/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/imperium/hit_1.mp3",
+                                           "assets/skins/imperium/hit_2.mp3",
+                                           "assets/skins/imperium/hit_3.mp3",
+                                           "assets/skins/imperium/hit_4.mp3",
+                                           "assets/skins/imperium/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "ion",
+                      "name":  "Ion",
+                      "assetFolder":  "ion",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/ion/ui.png",
+                      "thumbUrl":  "assets/skins/ion/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/ion/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/ion/hit_1.mp3",
+                                           "assets/skins/ion/hit_2.mp3",
+                                           "assets/skins/ion/hit_3.mp3",
+                                           "assets/skins/ion/hit_4.mp3",
+                                           "assets/skins/ion/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "mystbloom",
+                      "name":  "mystbloom",
+                      "assetFolder":  "mystbloom",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/mystbloom/ui.png",
+                      "thumbUrl":  "assets/skins/mystbloom/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/mystbloom/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/mystbloom/hit_1.mp3",
+                                           "assets/skins/mystbloom/hit_2.mp3",
+                                           "assets/skins/mystbloom/hit_3.mp3",
+                                           "assets/skins/mystbloom/hit_4.mp3",
+                                           "assets/skins/mystbloom/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "neo_frontier",
+                      "name":  "Neo frontier",
+                      "assetFolder":  "neo_frontier",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/neo_frontier/ui.png",
+                      "thumbUrl":  "assets/skins/neo_frontier/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/neo_frontier/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/neo_frontier/hit_1.mp3",
+                                           "assets/skins/neo_frontier/hit_2.mp3",
+                                           "assets/skins/neo_frontier/hit_3.mp3",
+                                           "assets/skins/neo_frontier/hit_4.mp3",
+                                           "assets/skins/neo_frontier/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "oni",
+                      "name":  "oni",
+                      "assetFolder":  "oni",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/oni/ui.png",
+                      "thumbUrl":  "assets/skins/oni/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/oni/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/oni/hit_1.mp3",
+                                           "assets/skins/oni/hit_2.mp3",
+                                           "assets/skins/oni/hit_3.mp3",
+                                           "assets/skins/oni/hit_4.mp3",
+                                           "assets/skins/oni/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "origin",
+                      "name":  "origin vandal",
+                      "assetFolder":  "origin",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/origin/ui.png",
+                      "thumbUrl":  "assets/skins/origin/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/origin/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/origin/hit_1.mp3",
+                                           "assets/skins/origin/hit_2.mp3",
+                                           "assets/skins/origin/hit_3.mp3",
+                                           "assets/skins/origin/hit_4.mp3",
+                                           "assets/skins/origin/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "primevandalllll",
+                      "name":  "primevandal",
+                      "assetFolder":  "primevandalllll",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/primevandalllll/ui.png",
+                      "thumbUrl":  "assets/skins/primevandalllll/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/primevandalllll/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/primevandalllll/hit_1.mp3",
+                                           "assets/skins/primevandalllll/hit_2.mp3",
+                                           "assets/skins/primevandalllll/hit_3.mp3",
+                                           "assets/skins/primevandalllll/hit_4.mp3",
+                                           "assets/skins/primevandalllll/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "radiantentertainment",
+                      "name":  "Radiantentertainment",
+                      "assetFolder":  "radiantentertainment",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/radiantentertainment/ui.png",
+                      "thumbUrl":  "assets/skins/radiantentertainment/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/radiantentertainment/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/radiantentertainment/hit_1.mp3",
+                                           "assets/skins/radiantentertainment/hit_2.mp3",
+                                           "assets/skins/radiantentertainment/hit_3.mp3",
+                                           "assets/skins/radiantentertainment/hit_4.mp3",
+                                           "assets/skins/radiantentertainment/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Phantom",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "reaver",
+                      "name":  "reaver",
+                      "assetFolder":  "reaver",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/reaver/ui.png",
+                      "thumbUrl":  "assets/skins/reaver/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/reaver/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/reaver/hit_1.mp3",
+                                           "assets/skins/reaver/hit_2.mp3",
+                                           "assets/skins/reaver/hit_3.mp3",
+                                           "assets/skins/reaver/hit_4.mp3",
+                                           "assets/skins/reaver/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "recon",
+                      "name":  "Recon",
+                      "assetFolder":  "recon",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/recon/ui.png",
+                      "thumbUrl":  "assets/skins/recon/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/recon/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/recon/hit_1.mp3",
+                                           "assets/skins/recon/hit_2.mp3",
+                                           "assets/skins/recon/hit_3.mp3",
+                                           "assets/skins/recon/hit_4.mp3",
+                                           "assets/skins/recon/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Phantom",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "rogue",
+                      "name":  "Rogue",
+                      "assetFolder":  "rogue",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/rogue/ui.png",
+                      "thumbUrl":  "assets/skins/rogue/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/rogue/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/rogue/hit_1.mp3",
+                                           "assets/skins/rogue/hit_2.mp3",
+                                           "assets/skins/rogue/hit_3.mp3",
+                                           "assets/skins/rogue/hit_4.mp3",
+                                           "assets/skins/rogue/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "ruination",
+                      "name":  "Ruination",
+                      "assetFolder":  "ruination",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/ruination/ui.png",
+                      "thumbUrl":  "assets/skins/ruination/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/ruination/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/ruination/hit_1.mp3",
+                                           "assets/skins/ruination/hit_2.mp3",
+                                           "assets/skins/ruination/hit_3.mp3",
+                                           "assets/skins/ruination/hit_4.mp3",
+                                           "assets/skins/ruination/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Ghost",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "solarstride",
+                      "name":  "solarstride",
+                      "assetFolder":  "solarstride",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/solarstride/ui.png",
+                      "thumbUrl":  "assets/skins/solarstride/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/solarstride/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/solarstride/hit_1.mp3",
+                                           "assets/skins/solarstride/hit_2.mp3",
+                                           "assets/skins/solarstride/hit_3.mp3",
+                                           "assets/skins/solarstride/hit_4.mp3",
+                                           "assets/skins/solarstride/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "valianthero",
+                      "name":  "Valianthero",
+                      "assetFolder":  "valianthero",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/valianthero/ui.png",
+                      "thumbUrl":  "assets/skins/valianthero/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/valianthero/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/valianthero/hit_1.mp3",
+                                           "assets/skins/valianthero/hit_2.mp3",
+                                           "assets/skins/valianthero/hit_3.mp3",
+                                           "assets/skins/valianthero/hit_4.mp3",
+                                           "assets/skins/valianthero/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Vandal",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  },
+                  {
+                      "id":  "something",
+                      "name":  "Singularity",
+                      "assetFolder":  "something",
+                      "uiFile":  "ui.png",
+                      "thumbFile":  "thumb.webp",
+                      "uiImgUrl":  "assets/skins/something/ui.png",
+                      "thumbUrl":  "assets/skins/something/thumb.webp",
+                      "clickSoundUrl":  "assets/skins/something/click.mp3",
+                      "hitSoundUrls":  [
+                                           "assets/skins/something/hit_1.mp3",
+                                           "assets/skins/something/hit_2.mp3",
+                                           "assets/skins/something/hit_3.mp3",
+                                           "assets/skins/something/hit_4.mp3",
+                                           "assets/skins/something/hit_5.mp3"
+                                       ],
+                      "offsetX":  0,
+                      "offsetY":  0,
+                      "scale":  1,
+                      "category":  "Sheriff",
+                      "variantGroup":  "",
+                      "variantLabel":  "",
+                      "nameI18n":  {
+
+                                   }
+                  }
+              ]
+}

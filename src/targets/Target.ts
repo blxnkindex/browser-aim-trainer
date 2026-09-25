@@ -36,7 +36,7 @@ export class Target {
         this.spawn();
     }
 
-    spawn() {
+    spawn(gameTime?: number) {
         this.mesh.position.set(
             T.MathUtils.randFloat(
                 this.bounds.minX,
@@ -52,7 +52,9 @@ export class Target {
             )
         );
 
-        this.spawnedAt = performance.now();
+        // Store spawn time in scenario-relative game time if provided,
+        // so that reaction time calculations exclude time spent paused.
+        this.spawnedAt = gameTime ?? performance.now();
     }
 
     destroy(scene: T.Scene) {
