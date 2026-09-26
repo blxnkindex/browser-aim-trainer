@@ -148,6 +148,7 @@ const startScenario = async () => {
     }
 
     score.reset();
+    weapon.resetHitSoundSequence();
 
     if (userConfig.showViewmodel) {
         weapon.show();

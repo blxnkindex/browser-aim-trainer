@@ -32,7 +32,7 @@ export class Scenario {
         this.config = config;
 
         for (let i = 0; i < config.targetCount; i++) {
-            const behaviour = config.movement === "moving" ? new Moving({speed: 3, directionMode: config.directionMode ?? "horizontal", }) : undefined;
+            const behaviour = config.movement === "moving" ? new Moving({speed: config.movementSpeed ?? 3, directionMode: config.directionMode ?? "horizontal", directionChangeMin: config.directionChangeMin, directionChangeMax: config.directionChangeMax }) : undefined;
             const target = new Target( scene, config.targetSize, undefined, behaviour, targetColor);
             target.mesh.visible = false;
             this.targets.push(target);

@@ -65,9 +65,9 @@ export class ScenarioSettings<T extends string> {
         this.sizeSelect = document.createElement("select");
 
         const sizes = [
-            { name: "Small", value: 0.3 },
-            { name: "Medium", value: 0.5 },
-            { name: "Large", value: 0.8 },
+            { name: "Small", value: 0.1 },
+            { name: "Medium", value: 0.2 },
+            { name: "Large", value: 0.5 },
         ];
 
         for (const size of sizes) {
@@ -202,7 +202,7 @@ export class ScenarioSettings<T extends string> {
 
         // Defaults
         this.timeSelect.value = "30";
-        this.sizeSelect.value = "0.3";
+        this.sizeSelect.value = "0.2";
 
         this.customTimeInput.style.display = "none";
         this.customSizeInput.style.display = "none";
