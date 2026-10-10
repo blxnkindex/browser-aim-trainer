@@ -1,9 +1,6 @@
 import { Scenario } from "../scenarios/Scenario";
 import { Score } from "../sys/Score";
-import {
-    parseValorantCrosshairCodeSafe,
-    renderCrosshair
-} from "../config/Crosshair";
+import { parseValorantCrosshairCodeSafe, renderCrosshair, } from "../config/Crosshair";
 import { userConfig, saveConfig } from "../config/UserConfig";
 
 export class HUD {
@@ -43,7 +40,6 @@ export class HUD {
         this.pauseElement.id = "pause";
         this.resumeButton.id = "resume-button";
         this.mainMenuButton.id = "main-menu-button";
-
         this.resultsElement.style.display = "none";
 
         const pauseTitle = document.createElement("div");
@@ -61,14 +57,11 @@ export class HUD {
         this.sfxVolumeInput.min = "0";
         this.sfxVolumeInput.max = "100";
         this.sfxVolumeInput.step = "1";
-        this.sfxVolumeInput.value =
-            userConfig.sfxVolume.toString();
+        this.sfxVolumeInput.value = userConfig.sfxVolume.toString();
 
         this.sfxVolumeInput.addEventListener("input", () => {
             const value = Number(this.sfxVolumeInput.value);
-
             userConfig.sfxVolume = value;
-
             saveConfig();
             this.onSfxVolumeChange(value);
         });
@@ -77,7 +70,6 @@ export class HUD {
 
         this.resumeButton.textContent = "RESUME";
         this.mainMenuButton.textContent = "MAIN MENU";
-
         this.pauseElement.style.display = "none";
 
         document.body.appendChild(this.timerElement);
@@ -96,59 +88,45 @@ export class HUD {
             this.onMainMenu();
         });
 
-        this.crosshairCanvas =
-            document.getElementById("xhair") as HTMLCanvasElement;
-
+        this.crosshairCanvas = document.getElementById("xhair") as HTMLCanvasElement;
         this.refreshCrosshair();
         this.hideCrosshair();
     }
 
-update(timestamp: number) {
-    this.frameCount++;
+    update(timestamp: number) {
+        this.frameCount++;
 
-    if (timestamp - this.lastFrameTime >= 500) {
-        this.fps =
-            this.frameCount /
-            ((timestamp - this.lastFrameTime) / 1000);
+        if (timestamp - this.lastFrameTime >= 500) {
+            this.fps = this.frameCount / ((timestamp - this.lastFrameTime) / 1000);
+            this.frameCount = 0;
+            this.lastFrameTime = timestamp;
+        }
 
-        this.frameCount = 0;
-        this.lastFrameTime = timestamp;
+        this.fpsElement.textContent = `FPS: ${Math.round(this.fps)}`;
+
+        if (!this.scenario || !this.score) {
+            return;
+        }
+
+        if (this.scenario.isPaused) {
+            this.timerElement.textContent = "PAUSED";
+        } else {
+            this.timerElement.textContent = `${(this.scenario.remaining / 1000).toFixed(1)}s`;
+        }
+
+        this.scoreElement.textContent =
+            `Score: ${this.score.pts} | ` +
+            `Hits: ${this.score.hits} | ` +
+            `Shots: ${this.score.shots} | ` +
+            `Accuracy: ${(this.score.accuracy * 100).toFixed(1)}%`;
     }
-
-    this.fpsElement.textContent =
-        `FPS: ${Math.round(this.fps)}`;
-
-    if (!this.scenario || !this.score) {
-        return;
-    }
-
-    if (this.scenario.isPaused) {
-        this.timerElement.textContent = "PAUSED";
-    } else {
-        this.timerElement.textContent =
-            `${(this.scenario.remaining / 1000).toFixed(1)}s`;
-    }
-
-    this.scoreElement.textContent =
-        `Score: ${this.score.pts} | ` +
-        `Hits: ${this.score.hits} | ` +
-        `Shots: ${this.score.shots} | ` +
-        `Accuracy: ${(this.score.accuracy * 100).toFixed(1)}%`;
-}
 
     setScenario(scenario: Scenario, score: Score) {
         this.scenario = scenario;
         this.score = score;
 
-        const crosshairProfile =
-            parseValorantCrosshairCodeSafe(
-                userConfig.crosshairCode
-            );
-
-        renderCrosshair(
-            this.crosshairCanvas,
-            crosshairProfile
-        );
+        const crosshairProfile = parseValorantCrosshairCodeSafe(userConfig.crosshairCode);
+        renderCrosshair(this.crosshairCanvas, crosshairProfile);
     }
 
     showResults() {
@@ -158,7 +136,6 @@ update(timestamp: number) {
 
         this.hideCrosshair();
         this.hidePaused();
-
         this.timerElement.style.display = "none";
         this.scoreElement.style.display = "none";
 
@@ -174,14 +151,9 @@ update(timestamp: number) {
         this.resultsElement.style.display = "flex";
 
         const restartButton =
-            this.resultsElement.querySelector<HTMLButtonElement>(
-                "#restart-button"
-            );
-
+            this.resultsElement.querySelector<HTMLButtonElement>("#restart-button");
         const resultsMainMenuButton =
-            this.resultsElement.querySelector<HTMLButtonElement>(
-                "#results-main-menu-button"
-            );
+            this.resultsElement.querySelector<HTMLButtonElement>("#results-main-menu-button");
 
         restartButton?.addEventListener("click", () => {
             this.resultsElement.style.display = "none";
@@ -214,10 +186,7 @@ update(timestamp: number) {
 
     showPaused(onResume: () => void) {
         this.pauseElement.style.display = "block";
-
-        this.sfxVolumeInput.value =
-            userConfig.sfxVolume.toString();
-
+        this.sfxVolumeInput.value = userConfig.sfxVolume.toString();
         this.clearCooldown();
 
         const COOLDOWN_MS = 1300;
@@ -232,18 +201,13 @@ update(timestamp: number) {
             if (remaining <= 0) {
                 this.enableResume();
             } else {
-                const seconds =
-                    (remaining / 1000).toFixed(1);
-
-                this.resumeButton.textContent =
-                    `RESUME (${seconds}s)`;
+                const seconds = (remaining / 1000).toFixed(1);
+                this.resumeButton.textContent = `RESUME (${seconds}s)`;
             }
         };
 
         updateButtonState();
-
-        this.cooldownInterval =
-            window.setInterval(updateButtonState, 50);
+        this.cooldownInterval = window.setInterval(updateButtonState, 50);
 
         this.resumeButton.onclick = () => {
             if (this.resumeButton.disabled) {
@@ -252,7 +216,6 @@ update(timestamp: number) {
 
             this.resumeButton.disabled = true;
             this.resumeButton.textContent = "RESUMING...";
-
             onResume();
         };
     }
@@ -279,14 +242,10 @@ update(timestamp: number) {
     }
 
     refreshCrosshair() {
-        const crosshairProfile =
-            parseValorantCrosshairCodeSafe(
-                userConfig.crosshairCode
-            );
-
-        renderCrosshair(
-            this.crosshairCanvas,
-            crosshairProfile
+        const crosshairProfile = parseValorantCrosshairCodeSafe(
+            userConfig.crosshairCode
         );
+
+        renderCrosshair(this.crosshairCanvas, crosshairProfile);
     }
 }

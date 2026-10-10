@@ -1,5 +1,4 @@
 import * as T from "three";
-
 import "./style.css";
 import "./style/hud.css";
 import "./style/menu.css";
@@ -16,14 +15,14 @@ import { scenarios } from "./scenarios/definitions";
 import { MainMenu } from "./ui/MainMenu";
 import { ScenarioSettings } from "./ui/ScenarioSettings";
 import { valorantVFOV } from "./config/Valorant";
-import { SettingsMenu } from "./ui/Settings";
 import { userConfig, saveConfig } from "./config/UserConfig";
 import { Environment } from "./environment/Environment";
-import { box } from "./environment/definitions";
+import { environments } from "./environment/definitions";
 import { Weapon } from "./weapon/Weapon";
 import { Skin } from "./weapon/Skin";
 import { SkinCatalog } from "./weapon/SkinCatalog";
 import { SkinSettings } from "./ui/SkinSettings";
+import { SettingsMenu } from "./ui/Settings";
 
 const canvas = document.querySelector<HTMLCanvasElement>("#game");
 
@@ -42,11 +41,9 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 const scene = new T.Scene();
 scene.background = new T.Color(0x111111);
 
-const environment = new Environment(box);
-scene.add(environment.object);
+let environment: Environment | null = null;
 
 const aspect = window.innerWidth / window.innerHeight;
-
 const camera = new T.PerspectiveCamera(
     valorantVFOV(aspect),
     aspect,
@@ -77,7 +74,6 @@ skinCatalog
         }
 
         currentSkin = savedSkin ?? defaultSkin;
-
         weapon.equipSkin(currentSkin);
         weapon.setLeftHanded(userConfig.leftHanded);
 
@@ -128,11 +124,7 @@ const requestLock = async (): Promise<boolean> => {
 
                 return true;
             } catch (fallbackErr) {
-                console.warn(
-                    "Pointer lock fallback failed:",
-                    fallbackErr
-                );
-
+                console.warn("Pointer lock fallback failed:", fallbackErr);
                 return false;
             }
         }
@@ -187,12 +179,17 @@ const exitScenario = () => {
 
     score.reset();
     document.exitPointerLock();
-
     scenario.end();
+    scenario = null;
+
+    if (environment) {
+        scene.remove(environment.object);
+        environment.dispose();
+        environment = null;
+    }
 
     hud.hidePaused();
     hud.hideResults();
-
     menu.show();
 };
 
@@ -207,14 +204,49 @@ const resumeScenario = () => {
 type ScenarioId = keyof typeof scenarios;
 
 let currentConfig: ScenarioConfig | null = null;
+let currentDuration = 30_000;
+let currentTargetSize = 0.2;
+let currentMovementSpeed = 3;
 
-const startGame = async (config: ScenarioConfig) => {
+const startGame = async (
+    config: ScenarioConfig,
+    duration: number,
+    targetSize: number,
+    movementSpeed: number
+) => {
     currentConfig = config;
+    currentDuration = duration;
+    currentTargetSize = targetSize;
+    currentMovementSpeed = movementSpeed;
+
+    if (scenario) {
+        scenario.end();
+        scenario = null;
+    }
+
+    if (environment) {
+        scene.remove(environment.object);
+        environment.dispose();
+        environment = null;
+    }
+
+    const environmentDefinition = environments[config.environment];
+
+    if (!environmentDefinition) {
+        throw new Error(`Unknown environment: ${config.environment}`);
+    }
+
+    environment = new Environment(environmentDefinition);
+    scene.add(environment.object);
 
     scenario = new Scenario(
         scene,
         config,
-        userConfig.targetColor
+        userConfig.targetColor,
+        duration,
+        targetSize,
+        movementSpeed,
+        environment
     );
 
     score = new Score();
@@ -225,8 +257,13 @@ const startGame = async (config: ScenarioConfig) => {
             scenario,
             score,
             () => {
-                if (currentConfig) {
-                    startGame(currentConfig);
+                if (currentConfig && environment) {
+                    startGame(
+                        currentConfig,
+                        currentDuration,
+                        currentTargetSize,
+                        currentMovementSpeed
+                    );
                 }
             },
             exitScenario,
@@ -243,9 +280,9 @@ const startGame = async (config: ScenarioConfig) => {
 
 const configMenu = new ScenarioSettings(
     scenarios,
-    async (config) => {
+    async (config, duration, targetSize, movementSpeed) => {
         configMenu.hide();
-        await startGame(config);
+        await startGame(config, duration, targetSize, movementSpeed);
     },
     () => {
         configMenu.hide();
@@ -343,9 +380,7 @@ canvas.addEventListener("mousedown", () => {
     weapon.fire();
 
     const hit = hitDetection.check(
-        scenario.activeTargets.map(
-            (target) => target.mesh
-        )
+        scenario.activeTargets.map((target) => target.mesh)
     );
 
     if (hit) {
@@ -355,11 +390,9 @@ canvas.addEventListener("mousedown", () => {
 
         if (hitTarget) {
             const reactionTime = scenario.elapsed - hitTarget.spawnedAt;
-
             score.recordShot(true, reactionTime);
-
             weapon.playHitSound();
-            hitTarget.spawn(scenario.elapsed);
+            scenario.respawnTarget(hitTarget);
         } else {
             score.recordShot(false, 0);
             weapon.resetHitSoundSequence();
@@ -377,10 +410,7 @@ window.addEventListener("resize", () => {
     camera.fov = valorantVFOV(aspect);
     camera.updateProjectionMatrix();
 
-    renderer.setSize(
-        window.innerWidth,
-        window.innerHeight
-    );
+    renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
 let lastTimestamp = 0;
@@ -413,7 +443,6 @@ function animate(timestamp: number) {
     }
 
     renderer.render(scene, camera);
-
     requestAnimationFrame(animate);
 }
 

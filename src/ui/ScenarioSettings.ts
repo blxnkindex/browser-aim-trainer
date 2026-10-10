@@ -2,22 +2,23 @@ import { ScenarioConfig } from "../scenarios/Scenario";
 
 export class ScenarioSettings<T extends string> {
     private element: HTMLDivElement;
-
     private timeSelect: HTMLSelectElement;
     private sizeSelect: HTMLSelectElement;
     private speedSelect: HTMLSelectElement;
-
     private speedLabel: HTMLLabelElement;
-
     private customTimeInput: HTMLInputElement;
     private customSizeInput: HTMLInputElement;
     private customSpeedInput: HTMLInputElement;
-
     private selectedConfig: ScenarioConfig | null = null;
 
     constructor(
         private readonly scenarios: Record<T, ScenarioConfig>,
-        private readonly onStart: (config: ScenarioConfig) => void,
+        private readonly onStart: (
+            config: ScenarioConfig,
+            duration: number,
+            targetSize: number,
+            movementSpeed: number
+        ) => void,
         private readonly onBack: () => void
     ) {
         this.element = document.createElement("div");
@@ -26,7 +27,6 @@ export class ScenarioSettings<T extends string> {
         const title = document.createElement("h1");
         title.textContent = "CUSTOMISE SCENARIO";
 
-        // Time
         const timeLabel = document.createElement("label");
         timeLabel.textContent = "Time";
 
@@ -53,12 +53,9 @@ export class ScenarioSettings<T extends string> {
 
         this.timeSelect.addEventListener("change", () => {
             this.customTimeInput.style.display =
-                this.timeSelect.value === "custom"
-                    ? "block"
-                    : "none";
+                this.timeSelect.value === "custom" ? "block" : "none";
         });
 
-        // Target size
         const sizeLabel = document.createElement("label");
         sizeLabel.textContent = "Target Size";
 
@@ -91,12 +88,9 @@ export class ScenarioSettings<T extends string> {
 
         this.sizeSelect.addEventListener("change", () => {
             this.customSizeInput.style.display =
-                this.sizeSelect.value === "custom"
-                    ? "block"
-                    : "none";
+                this.sizeSelect.value === "custom" ? "block" : "none";
         });
 
-        // Movement speed
         this.speedLabel = document.createElement("label");
         this.speedLabel.textContent = "Movement Speed";
 
@@ -129,17 +123,16 @@ export class ScenarioSettings<T extends string> {
 
         this.speedSelect.addEventListener("change", () => {
             this.customSpeedInput.style.display =
-                this.speedSelect.value === "custom"
-                    ? "block"
-                    : "none";
+                this.speedSelect.value === "custom" ? "block" : "none";
         });
 
-        // Start
         const startButton = document.createElement("button");
         startButton.textContent = "START";
 
         startButton.addEventListener("click", () => {
-            if (!this.selectedConfig) return;
+            if (!this.selectedConfig) {
+                return;
+            }
 
             const duration =
                 this.timeSelect.value === "custom"
@@ -156,17 +149,14 @@ export class ScenarioSettings<T extends string> {
                     ? Number(this.customSpeedInput.value)
                     : Number(this.speedSelect.value);
 
-            const config: ScenarioConfig = {
-                ...this.selectedConfig,
+            this.onStart(
+                this.selectedConfig,
                 duration,
                 targetSize,
-                movementSpeed,
-            };
-
-            this.onStart(config);
+                movementSpeed
+            );
         });
 
-        // Back
         const backButton = document.createElement("button");
         backButton.textContent = "BACK";
 
@@ -174,49 +164,35 @@ export class ScenarioSettings<T extends string> {
             this.onBack();
         });
 
-        // Build UI
         this.element.appendChild(title);
-
         this.element.appendChild(timeLabel);
         this.element.appendChild(this.timeSelect);
         this.element.appendChild(this.customTimeInput);
-
         this.element.appendChild(sizeLabel);
         this.element.appendChild(this.sizeSelect);
         this.element.appendChild(this.customSizeInput);
-
         this.element.appendChild(this.speedLabel);
         this.element.appendChild(this.speedSelect);
         this.element.appendChild(this.customSpeedInput);
-
         this.element.appendChild(startButton);
         this.element.appendChild(backButton);
 
         document.body.appendChild(this.element);
-
         this.hide();
     }
 
     show(id: T) {
         this.selectedConfig = this.scenarios[id];
-
-        // Defaults
         this.timeSelect.value = "30";
         this.sizeSelect.value = "0.2";
-
         this.customTimeInput.style.display = "none";
         this.customSizeInput.style.display = "none";
         this.customSpeedInput.style.display = "none";
 
-        const isMoving =
-            this.selectedConfig.movement === "moving";
+        const isMoving = this.selectedConfig.movement === "moving";
 
-        this.speedLabel.style.display =
-            isMoving ? "block" : "none";
-
-        this.speedSelect.style.display =
-            isMoving ? "block" : "none";
-
+        this.speedLabel.style.display = isMoving ? "block" : "none";
+        this.speedSelect.style.display = isMoving ? "block" : "none";
         this.element.style.display = "flex";
     }
 

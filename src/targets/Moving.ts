@@ -9,9 +9,17 @@ export type DirectionMode =
     | "horizontal"
     | "vertical";
 
+export interface MovementBounds {
+    minX: number;
+    maxX: number;
+    minY: number;
+    maxY: number;
+}
+
 export interface MovingConfig {
     speed: number;
     directionMode: DirectionMode;
+    bounds: MovementBounds;
     directionChangeMin?: number;
     directionChangeMax?: number;
     randomInitialDirection?: boolean;
@@ -22,24 +30,30 @@ export class Moving implements Behaviour {
     private changeTimer = 0;
     private nextDirectionChange = 0;
 
-    constructor(
-        private readonly config: MovingConfig
-    ) {
+    constructor(private readonly config: MovingConfig) {
         this.chooseDirection();
     }
 
     update(target: Target, delta: number): void {
         target.mesh.position.addScaledVector(this.direction, this.config.speed * delta);
 
-        const x = target.mesh.position.x;
-        const y = target.mesh.position.y;
+        const position = target.mesh.position;
+        const { minX, maxX, minY, maxY } = this.config.bounds;
 
-        if (x > 5 || x < -5) {
-            this.direction.x *= -1;
+        if (position.x < minX) {
+            position.x = minX;
+            this.direction.x = Math.abs(this.direction.x);
+        } else if (position.x > maxX) {
+            position.x = maxX;
+            this.direction.x = -Math.abs(this.direction.x);
         }
 
-        if (y > 3.5 || y < -3.5) {
-            this.direction.y *= -1;
+        if (position.y < minY) {
+            position.y = minY;
+            this.direction.y = Math.abs(this.direction.y);
+        } else if (position.y > maxY) {
+            position.y = maxY;
+            this.direction.y = -Math.abs(this.direction.y);
         }
 
         this.changeTimer += delta;

@@ -83,8 +83,7 @@ export class SettingsMenu {
         // Custom colour
         this.customColorButton = document.createElement("button");
         this.customColorButton.type = "button";
-        this.customColorButton.className =
-            "target-color-preset target-color-custom";
+        this.customColorButton.className = "target-color-preset target-color-custom";
         this.customColorButton.textContent = "CUSTOM";
 
         this.customColorButton.addEventListener("click", () => {
