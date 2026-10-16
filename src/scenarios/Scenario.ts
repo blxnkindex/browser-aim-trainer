@@ -1,11 +1,11 @@
+
 import * as T from "three";
 
-import { Environment, WallGap } from "../environment/Environment";
+import { Environment } from "../environment/Environment";
 import { Target } from "../targets/Target";
 import { Moving, DirectionMode } from "../targets/Moving";
 
 export type ScenarioState = "idle" | "running" | "paused" | "finished";
-
 export type SpawnMode = "backWall" | "wallGaps";
 export type TargetRange = "none" | "half" | "full";
 export type InteractionMode = "click" | "holdFire";
@@ -15,19 +15,21 @@ export interface ScenarioConfig {
     category: "clicking" | "tracking" | "switching" | "training";
     targetCount: number;
     movement: "static" | "moving";
-    directionMode?: DirectionMode;
-    directionChangeMin?: number;
-    directionChangeMax?: number;
     environment: string;
     spawnMode: SpawnMode;
     targetXRange: TargetRange;
     targetYRange: TargetRange;
-
-    // Optional tracking settings.
+    directionMode?: DirectionMode;
+    directionChangeMin?: number;
+    directionChangeMax?: number;
+    directionChangeDuration?: number;
+    turnSpeedMultiplier?: number;
+    acceleration?: number;
+    turnRate?: number;
+    turnDirection?: "clockwise" | "counterclockwise" | "random";
     interactionMode?: InteractionMode;
     targetHealth?: number;
 }
-
 
 export class Scenario {
     readonly config: ScenarioConfig;
@@ -49,7 +51,7 @@ export class Scenario {
         duration: number,
         targetSize: number,
         movementSpeed: number,
-        environment: Environment
+        environment: Environment,
     ) {
         this.config = config;
         this.duration = duration;
@@ -57,25 +59,8 @@ export class Scenario {
         this.movementSpeed = movementSpeed;
         this.environment = environment;
 
-        const bounds = this.environment.getSpawnBounds(this.spawnOffset + this.targetSize);
-        const movementBounds = {
-            minX: bounds.minX,
-            maxX: bounds.maxX,
-            minY: bounds.minY,
-            maxY: bounds.maxY,
-        };
-
         for (let i = 0; i < config.targetCount; i++) {
-            const behaviour = config.movement === "moving"
-                ? new Moving({
-                    speed: this.movementSpeed,
-                    directionMode: config.directionMode ?? "horizontal",
-                    directionChangeMin: config.directionChangeMin,
-                    directionChangeMax: config.directionChangeMax,
-                    bounds: movementBounds,
-                })
-                : undefined;
-
+            const behaviour = config.movement === "moving" ? this.createMovementBehaviour() : undefined;
             const target = new Target(scene, this.targetSize, behaviour, targetColor, config.targetHealth);
 
             target.mesh.visible = false;
@@ -83,7 +68,24 @@ export class Scenario {
         }
     }
 
-    start() {
+    private createMovementBehaviour(): Moving {
+        const bounds = this.environment.getSpawnBounds(this.spawnOffset + this.targetSize);
+
+        return new Moving({
+            speed: this.movementSpeed,
+            directionMode: this.config.directionMode ?? "horizontal",
+            directionChangeMin: this.config.directionChangeMin,
+            directionChangeMax: this.config.directionChangeMax,
+            directionChangeDuration: this.config.directionChangeDuration,
+            turnSpeedMultiplier: this.config.turnSpeedMultiplier,
+            acceleration: this.config.acceleration,
+            turnRate: this.config.turnRate,
+            turnDirection: this.config.turnDirection,
+            bounds: { minX: bounds.minX, maxX: bounds.maxX, minY: bounds.minY, maxY: bounds.maxY },
+        });
+    }
+
+    start(): void {
         this.startedAt = performance.now();
         this.state = "running";
 
@@ -93,31 +95,19 @@ export class Scenario {
         }
     }
 
-    respawnTarget(target: Target) {
-        if (!this.isActive) {
-            return;
-        }
-
+    respawnTarget(target: Target): void {
+        if (!this.isActive) return;
         this.spawnTarget(target, this.elapsed);
     }
 
-
     damageTarget(target: Target, delta: number): boolean {
-        if (
-            !this.isActive ||
-            this.config.interactionMode !== "holdFire" ||
-            this.config.targetHealth === undefined
-        ) {
+        if (!this.isActive || this.config.interactionMode !== "holdFire" || this.config.targetHealth === undefined) {
             return false;
         }
 
-        const damagePerSecond = 50;
-        const killed = target.takeDamage(damagePerSecond * delta);
+        const killed = target.takeDamage(50 * delta);
 
-        if (killed) {
-            this.respawnTarget(target);
-        }
-
+        if (killed) this.respawnTarget(target);
         return killed;
     }
 
@@ -135,9 +125,8 @@ export class Scenario {
         }
     }
 
-    private spawnTarget(target: Target, gameTime: number) {
+    private spawnTarget(target: Target, gameTime: number): void {
         const bounds = this.environment.getSpawnBounds(this.spawnOffset + this.targetSize);
-
         let position: T.Vector3;
 
         switch (this.config.spawnMode) {
@@ -149,7 +138,6 @@ export class Scenario {
 
                 position = this.environment.getBackWallPosition(x, this.spawnOffset + this.targetSize);
                 position.y = y;
-
                 break;
             }
 
@@ -157,59 +145,36 @@ export class Scenario {
                 const gaps = this.environment.getSideWallGaps();
 
                 if (gaps.length === 0) {
-                    throw new Error(
-                        `No side-wall gaps found in environment "${this.config.environment}".`
-                    );
+                    throw new Error(`No side-wall gaps found in environment "${this.config.environment}".`);
                 }
 
                 const gap = gaps[Math.floor(Math.random() * gaps.length)];
                 const direction = gap.side === "left" ? 1 : -1;
-                // offset for the angel hold and hell hold scenarios but i HATE doing this so eventually ill fix it if more scenarios need it
-                const offset = this.config.name === "angleHold" ? T.MathUtils.randFloat(-4, 0) : this.config.name === "hellHold" ? T.MathUtils.randFloat(-2, 0) : 0;
-                const targetOffset = offset + this.spawnOffset + this.targetSize - 2.5;
-                const x = gap.x + direction * targetOffset;
-                const y = 0;
-                const z = gap.centerZ  + T.MathUtils.randFloat(-0.5, 0.5);
+                const offset = this.config.name === "angleHold"
+                    ? T.MathUtils.randFloat(-4, 0)
+                    : this.config.name === "hellHold"
+                        ? T.MathUtils.randFloat(-2, 0)
+                        : 0;
 
-                position = new T.Vector3(x, y, z);
-                console.log("Wall gap spawn:", {
-                    side: gap.side,
-                    gapX: gap.x,
-                    direction,
-                    targetOffset,
-                    spawnX: position.x,
-                    spawnZ: position.z,
-                });
+                const targetOffset = offset + this.spawnOffset + this.targetSize - 2.5;
+                position = new T.Vector3(gap.x + direction * targetOffset, 0, gap.centerZ + T.MathUtils.randFloat(-0.5, 0.5));
 
                 const exitBounds = this.environment.getBackWallXBounds();
 
-                const movementBounds = {
-                    minX: exitBounds.minX,
-                    maxX: exitBounds.maxX,
-                    minY: y,
-                    maxY: y,
-                };
-
-                const behaviour = new Moving({
+                target.setBehaviour(new Moving({
                     speed: this.movementSpeed,
                     directionMode: "horizontal",
-                    bounds: movementBounds,
+                    bounds: { minX: exitBounds.minX, maxX: exitBounds.maxX, minY: 0, maxY: 0 },
                     initialDirection: new T.Vector3(direction, 0, 0),
                     changeDirectionOnTimer: false,
                     allowEntryFromOutside: true,
-
                     onExitBounds: (exitedTarget) => {
-                        if (!this.isActive) {
-                            return;
-                        }
-
+                        if (!this.isActive) return;
                         exitedTarget.mesh.visible = false;
                         this.respawnTarget(exitedTarget);
                         exitedTarget.mesh.visible = true;
                     },
-                });
-                target.setBehaviour(behaviour);
-
+                }));
                 break;
             }
 
@@ -220,13 +185,10 @@ export class Scenario {
         target.spawn(position, gameTime);
     }
 
-    end() {
+    end(): void {
         this.state = "finished";
 
-        for (const target of this.targets) {
-            target.destroy(this.scene);
-        }
-
+        for (const target of this.targets) target.destroy(this.scene);
         this.targets.length = 0;
     }
 
@@ -234,59 +196,44 @@ export class Scenario {
         return this.targets;
     }
 
-    get elapsed() {
-        if (this.startedAt === 0) {
-            return 0;
-        }
-
-        return performance.now() - this.startedAt;
+    get elapsed(): number {
+        return this.startedAt === 0 ? 0 : performance.now() - this.startedAt;
     }
 
-    get remaining() {
+    get remaining(): number {
         return Math.max(0, this.duration - this.elapsed);
     }
 
-    get finished() {
+    get finished(): boolean {
         return this.elapsed >= this.duration;
     }
 
-    get isActive() {
+    get isActive(): boolean {
         return this.state === "running" && !this.finished;
     }
 
-    get currentState() {
+    get currentState(): ScenarioState {
         return this.state;
     }
 
-    get isPaused() {
+    get isPaused(): boolean {
         return this.state === "paused";
     }
 
-    pause() {
-        if (this.state !== "running") {
-            return;
-        }
-
+    pause(): void {
+        if (this.state !== "running") return;
         this.pausedAt = performance.now();
         this.state = "paused";
     }
 
-    resume() {
-        if (this.state !== "paused") {
-            return;
-        }
-
+    resume(): void {
+        if (this.state !== "paused") return;
         this.startedAt += performance.now() - this.pausedAt;
         this.state = "running";
     }
 
-    update(delta: number) {
-        if (this.state !== "running") {
-            return;
-        }
-
-        for (const target of this.targets) {
-            target.update(delta);
-        }
+    update(delta: number): void {
+        if (this.state !== "running") return;
+        for (const target of this.targets) target.update(delta);
     }
 }
