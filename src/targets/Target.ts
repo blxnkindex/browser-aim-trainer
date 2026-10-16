@@ -1,4 +1,5 @@
 import * as T from "three";
+
 import { Behaviour } from "./Behaviour";
 
 export class Target {
@@ -8,7 +9,7 @@ export class Target {
     constructor(
         scene: T.Scene,
         size = 0.5,
-        private readonly behaviour?: Behaviour,
+        private behaviour?: Behaviour,
         color = "#ff0000"
     ) {
         const geometry = new T.SphereGeometry(size, 12, 12);
@@ -23,14 +24,22 @@ export class Target {
         this.spawnedAt = gameTime ?? performance.now();
     }
 
+    setBehaviour(behaviour: Behaviour | undefined) {
+        this.behaviour = behaviour;
+    }
+
     destroy(scene: T.Scene) {
         scene.remove(this.mesh);
         this.mesh.geometry.dispose();
 
-        if (Array.isArray(this.mesh.material)) {
-            this.mesh.material.forEach((material) => material.dispose());
+        const material = this.mesh.material;
+
+        if (Array.isArray(material)) {
+            for (const item of material) {
+                item.dispose();
+            }
         } else {
-            this.mesh.material.dispose();
+            material.dispose();
         }
     }
 

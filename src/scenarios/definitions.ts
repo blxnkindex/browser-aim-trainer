@@ -2,6 +2,7 @@ import { ScenarioConfig } from "../scenarios/Scenario";
 
 export const scenarios = {
     "closeMicroFlicks": {
+        name: "closeMicroFlicks",
         targetCount: 2,
         movement: "static",
         environment: "smallBox",
@@ -11,6 +12,7 @@ export const scenarios = {
     },
 
     "wideFlicks": {
+        name: "wideFlicks",
         targetCount: 6,
         movement: "static",
         environment: "wideBox",
@@ -18,8 +20,8 @@ export const scenarios = {
         targetXRange: "full",
         targetYRange: "full",
     },
-
     "dynamicClick": {
+        name: "dynamicClick",
         targetCount: 5,
         movement: "moving",
         directionMode: "free",
@@ -32,15 +34,39 @@ export const scenarios = {
     },
 
     "beanclick": {
+        name: "beanclick",
         targetCount: 2,
         movement: "moving",
         directionMode: "horizontal",
         environment: "box",
         spawnMode: "backWall",
-        targetXRange: "full",
-        targetYRange: "full",
+        targetXRange: "half",
+        targetYRange: "half",
     },
+    "peekFlicks": {
+        name: "peekFlicks",
+        targetCount: 2,
+        movement: "moving",
+        directionMode: "horizontal",
+        environment: "hallwayGaps",
+        spawnMode: "wallGaps",
+        targetXRange: "full",
+        targetYRange: "none",
+    },
+    
+    "angleHold": {
+        name: "angleHold",
+        targetCount: 1,
+        movement: "moving",
+        directionMode: "horizontal",
+        environment: "hallwaySingleGap",
+        spawnMode: "wallGaps",
+        targetXRange: "full",
+        targetYRange: "none",
+    },
+
     "smallFlicks": {
+        name: "smallFlicks",
         targetCount: 3,
         movement: "static",
         environment: "smallFarBox",

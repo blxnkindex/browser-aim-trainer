@@ -23,15 +23,32 @@ export interface MovingConfig {
     directionChangeMin?: number;
     directionChangeMax?: number;
     randomInitialDirection?: boolean;
+    initialDirection?: T.Vector3;
+    changeDirectionOnTimer?: boolean;
+    allowEntryFromOutside?: boolean;
+    onExitBounds?: (target: Target) => void;
 }
 
 export class Moving implements Behaviour {
     private direction = new T.Vector3();
     private changeTimer = 0;
     private nextDirectionChange = 0;
+    private enteringFromOutside: boolean;
 
     constructor(private readonly config: MovingConfig) {
-        this.chooseDirection();
+        this.enteringFromOutside = config.allowEntryFromOutside ?? false;
+
+        if (config.initialDirection) {
+            this.setDirection(config.initialDirection);
+        } else {
+            this.chooseDirection();
+        }
+
+        if (config.changeDirectionOnTimer === false) {
+            this.nextDirectionChange = Infinity;
+        } else {
+            this.setNextDirectionChange();
+        }
     }
 
     update(target: Target, delta: number): void {
@@ -40,12 +57,29 @@ export class Moving implements Behaviour {
         const position = target.mesh.position;
         const { minX, maxX, minY, maxY } = this.config.bounds;
 
-        if (position.x < minX) {
-            position.x = minX;
-            this.direction.x = Math.abs(this.direction.x);
-        } else if (position.x > maxX) {
-            position.x = maxX;
-            this.direction.x = -Math.abs(this.direction.x);
+        if (this.enteringFromOutside) {
+            const enteredBounds = position.x >= minX && position.x <= maxX;
+
+            if (enteredBounds) {
+                this.enteringFromOutside = false;
+            }
+        }
+
+        if (!this.enteringFromOutside) {
+            if (position.x < minX || position.x > maxX) {
+                if (this.config.onExitBounds) {
+                    this.config.onExitBounds(target);
+                    return;
+                }
+
+                if (position.x < minX) {
+                    position.x = minX;
+                    this.direction.x = Math.abs(this.direction.x);
+                } else if (position.x > maxX) {
+                    position.x = maxX;
+                    this.direction.x = -Math.abs(this.direction.x);
+                }
+            }
         }
 
         if (position.y < minY) {
@@ -69,7 +103,11 @@ export class Moving implements Behaviour {
         const min = this.config.directionChangeMin;
         const max = this.config.directionChangeMax;
 
-        if (min === undefined || max === undefined) {
+        if (
+            this.config.changeDirectionOnTimer === false ||
+            min === undefined ||
+            max === undefined
+        ) {
             this.nextDirectionChange = Infinity;
             return;
         }

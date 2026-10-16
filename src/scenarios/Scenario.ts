@@ -1,15 +1,16 @@
 import * as T from "three";
 
-import { Environment } from "../environment/Environment";
+import { Environment, WallGap } from "../environment/Environment";
 import { Target } from "../targets/Target";
 import { Moving, DirectionMode } from "../targets/Moving";
 
 export type ScenarioState = "idle" | "running" | "paused" | "finished";
 
-export type SpawnMode = "backWall";
+export type SpawnMode = "backWall" | "wallGaps";
 export type TargetRange = "none" | "half" | "full";
 
 export interface ScenarioConfig {
+    name: string;
     targetCount: number;
     movement: "static" | "moving";
     directionMode?: DirectionMode;
@@ -121,6 +122,66 @@ export class Scenario {
 
                 position = this.environment.getBackWallPosition(x, this.spawnOffset + this.targetSize);
                 position.y = y;
+
+                break;
+            }
+
+            case "wallGaps": {
+                const gaps = this.environment.getSideWallGaps();
+
+                if (gaps.length === 0) {
+                    throw new Error(
+                        `No side-wall gaps found in environment "${this.config.environment}".`
+                    );
+                }
+
+                const gap = gaps[Math.floor(Math.random() * gaps.length)];
+                const direction = gap.side === "left" ? 1 : -1;
+
+                const baseOffset = this.spawnOffset + this.targetSize - 2.5;
+                const targetOffset = this.config.name === "angleHold" ? baseOffset + T.MathUtils.randFloat(-6, 0): baseOffset;
+                const x = gap.x + direction * targetOffset;
+                const y = 0;
+                const z = gap.centerZ;
+
+                position = new T.Vector3(x, y, z);
+                console.log("Wall gap spawn:", {
+                    side: gap.side,
+                    gapX: gap.x,
+                    direction,
+                    targetOffset,
+                    spawnX: position.x,
+                    spawnZ: position.z,
+                });
+
+                // Gap-spawned targets move horizontally across the corridor,
+                // bouncing at the movement bounds without changing their height.
+                const movementBounds = {
+                    minX: bounds.minX,
+                    maxX: bounds.maxX,
+                    minY: y,
+                    maxY: y,
+                };
+
+                const behaviour = new Moving({
+                    speed: this.movementSpeed,
+                    directionMode: "horizontal",
+                    bounds: movementBounds,
+                    initialDirection: new T.Vector3(direction, 0, 0),
+                    changeDirectionOnTimer: false,
+                    allowEntryFromOutside: true,
+
+                    onExitBounds: (exitedTarget) => {
+                        if (!this.isActive) {
+                            return;
+                        }
+
+                        exitedTarget.mesh.visible = false;
+                        this.respawnTarget(exitedTarget);
+                        exitedTarget.mesh.visible = true;
+                    },
+                });
+                target.setBehaviour(behaviour);
 
                 break;
             }
