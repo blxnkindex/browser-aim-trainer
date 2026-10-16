@@ -228,7 +228,7 @@ export const curvedBox: EnvironmentDefinition = {
     ],
 };
 
-export const hallwayGaps: EnvironmentDefinition = {
+export const hallwayMultipleGaps: EnvironmentDefinition = {
     walls: [
         {
             // FLOOR
@@ -250,7 +250,7 @@ export const hallwayGaps: EnvironmentDefinition = {
         },
         {
             // BACK WALL
-            width: 20,
+            width: 8,
             height: 25,
             depth: 0.2,
             position: new T.Vector3(0, 0, -35),
@@ -338,7 +338,7 @@ export const hallwaySingleGap: EnvironmentDefinition = {
         },
         {
             // BACK WALL
-            width: 20,
+            width: 8,
             height: 25,
             depth: 0.2,
             position: new T.Vector3(0, 0, -20),
@@ -351,7 +351,7 @@ export const hallwaySingleGap: EnvironmentDefinition = {
             // FRONT SECTION — ENDS BEFORE THE GAP
             width: 1.25,
             height: 20,
-            depth: 16,
+            depth: 22,
             position: new T.Vector3(-3, 0, -2.5),
             grid: true,
             gridSize: 1,
@@ -369,12 +369,112 @@ export const hallwaySingleGap: EnvironmentDefinition = {
     ],
 };
 
+export const hallwayDoubleGap: EnvironmentDefinition = {
+    walls: [
+        {
+            // FLOOR
+            width: 8,
+            height: 0,
+            depth: 22.5,
+            position: new T.Vector3(0, -3, -8.75),
+            grid: true,
+            gridSize: 1,
+        },
+        {
+            // CEILING
+            width: 8,
+            height: 0,
+            depth: 22.5,
+            position: new T.Vector3(0, 3, -8.75),
+            grid: true,
+            gridSize: 1,
+        },
+        {
+            // BACK WALL
+            width: 6,
+            height: 25,
+            depth: 0.2,
+            position: new T.Vector3(0, 0, -20),
+            grid: true,
+            gridSize: 1,
+        },
+
+        // LEFT SIDE
+        {
+            // FRONT SECTION — ENDS BEFORE THE GAP
+            width: 1.25,
+            height: 20,
+            depth: 20,
+            position: new T.Vector3(-1.5, 0, -2.5),
+            grid: true,
+            gridSize: 1,
+        },
+
+        // RIGHT SIDE — MIRRORED GAP
+        {
+            width: 1.25,
+            height: 20,
+            depth: 20,
+            position: new T.Vector3(1.5, 0, -2.5),
+            grid: true,
+            gridSize: 1,
+        },
+    ],
+};
+
+export const flatBox: EnvironmentDefinition = {
+    walls: [
+        {
+            width: 10,
+            height: 0,
+            depth: 35,
+            position: new T.Vector3(0, -1, -10),
+            grid: true,
+            gridSize: 1,
+        },
+        {
+            width: 10,
+            height: 0,
+            depth: 35,
+            position: new T.Vector3(0, 1, -10),
+            grid: true,
+            gridSize: 1,
+        },
+        {
+            width: 20,
+            height: 20,
+            depth: 0,
+            position: new T.Vector3(0, 0, -10),
+            grid: true,
+            gridSize: 1,
+        },
+        {
+            width: 0,
+            height: 10,
+            depth: 35,
+            position: new T.Vector3(-5, 0, -10),
+            grid: true,
+            gridSize: 1,
+        },
+        {
+            width: 0.2,
+            height: 10,
+            depth: 35,
+            position: new T.Vector3(5, 0, -10),
+            grid: true,
+            gridSize: 1,
+        },
+    ],
+};
+
 export const environments: Record<string, EnvironmentDefinition> = {
     box,
     smallBox,
     smallFarBox,
     wideBox,
     curvedBox,
-    hallwayGaps,
+    hallwayMultipleGaps,
     hallwaySingleGap,
+    hallwayDoubleGap,
+    flatBox,
 };

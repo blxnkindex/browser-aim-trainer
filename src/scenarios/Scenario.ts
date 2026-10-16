@@ -8,9 +8,11 @@ export type ScenarioState = "idle" | "running" | "paused" | "finished";
 
 export type SpawnMode = "backWall" | "wallGaps";
 export type TargetRange = "none" | "half" | "full";
+export type InteractionMode = "click" | "holdFire";
 
 export interface ScenarioConfig {
     name: string;
+    category: "clicking" | "tracking" | "switching" | "training";
     targetCount: number;
     movement: "static" | "moving";
     directionMode?: DirectionMode;
@@ -20,7 +22,12 @@ export interface ScenarioConfig {
     spawnMode: SpawnMode;
     targetXRange: TargetRange;
     targetYRange: TargetRange;
+
+    // Optional tracking settings.
+    interactionMode?: InteractionMode;
+    targetHealth?: number;
 }
+
 
 export class Scenario {
     readonly config: ScenarioConfig;
@@ -69,7 +76,7 @@ export class Scenario {
                 })
                 : undefined;
 
-            const target = new Target(scene, this.targetSize, behaviour, targetColor);
+            const target = new Target(scene, this.targetSize, behaviour, targetColor, config.targetHealth);
 
             target.mesh.visible = false;
             this.targets.push(target);
@@ -92,6 +99,26 @@ export class Scenario {
         }
 
         this.spawnTarget(target, this.elapsed);
+    }
+
+
+    damageTarget(target: Target, delta: number): boolean {
+        if (
+            !this.isActive ||
+            this.config.interactionMode !== "holdFire" ||
+            this.config.targetHealth === undefined
+        ) {
+            return false;
+        }
+
+        const damagePerSecond = 50;
+        const killed = target.takeDamage(damagePerSecond * delta);
+
+        if (killed) {
+            this.respawnTarget(target);
+        }
+
+        return killed;
     }
 
     private getRange(boundsMin: number, boundsMax: number, range: TargetRange) {
@@ -137,12 +164,12 @@ export class Scenario {
 
                 const gap = gaps[Math.floor(Math.random() * gaps.length)];
                 const direction = gap.side === "left" ? 1 : -1;
-
-                const baseOffset = this.spawnOffset + this.targetSize - 2.5;
-                const targetOffset = this.config.name === "angleHold" ? baseOffset + T.MathUtils.randFloat(-6, 0): baseOffset;
+                // offset for the angel hold and hell hold scenarios but i HATE doing this so eventually ill fix it if more scenarios need it
+                const offset = this.config.name === "angleHold" ? T.MathUtils.randFloat(-4, 0) : this.config.name === "hellHold" ? T.MathUtils.randFloat(-2, 0) : 0;
+                const targetOffset = offset + this.spawnOffset + this.targetSize - 2.5;
                 const x = gap.x + direction * targetOffset;
                 const y = 0;
-                const z = gap.centerZ;
+                const z = gap.centerZ  + T.MathUtils.randFloat(-0.5, 0.5);
 
                 position = new T.Vector3(x, y, z);
                 console.log("Wall gap spawn:", {
@@ -154,11 +181,11 @@ export class Scenario {
                     spawnZ: position.z,
                 });
 
-                // Gap-spawned targets move horizontally across the corridor,
-                // bouncing at the movement bounds without changing their height.
+                const exitBounds = this.environment.getBackWallXBounds();
+
                 const movementBounds = {
-                    minX: bounds.minX,
-                    maxX: bounds.maxX,
+                    minX: exitBounds.minX,
+                    maxX: exitBounds.maxX,
                     minY: y,
                     maxY: y,
                 };

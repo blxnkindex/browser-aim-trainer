@@ -1,8 +1,9 @@
 import { ScenarioConfig } from "../scenarios/Scenario";
 
 export const scenarios = {
-    "closeMicroFlicks": {
-        name: "closeMicroFlicks",
+    "closeFlicks": {
+        name: "closeFlicks",
+        category: "clicking",
         targetCount: 2,
         movement: "static",
         environment: "smallBox",
@@ -10,9 +11,43 @@ export const scenarios = {
         targetXRange: "full",
         targetYRange: "full",
     },
-
+    "closeSwitching": {
+        name: "closeSwitching",
+        category: "switching",
+        targetCount: 3,
+        movement: "static",
+        environment: "smallBox",
+        spawnMode: "backWall",
+        targetXRange: "full",
+        targetYRange: "full",
+        interactionMode: "holdFire",
+        targetHealth: 20,
+    },
+    "farMicroFlicks": {
+        name: "farMicroFlicks",
+        category: "clicking",
+        targetCount: 3,
+        movement: "static",
+        environment: "smallFarBox",
+        spawnMode: "backWall",
+        targetXRange: "full",
+        targetYRange: "full",
+    },
+    "farMicroSwitching": {
+        name: "farMicroSwitching",
+        category: "switching",
+        targetCount: 3,
+        movement: "static",
+        environment: "smallFarBox",
+        spawnMode: "backWall",
+        targetXRange: "full",
+        targetYRange: "full",
+        interactionMode: "holdFire",
+        targetHealth: 20,
+    },
     "wideFlicks": {
         name: "wideFlicks",
+        category: "clicking",
         targetCount: 6,
         movement: "static",
         environment: "wideBox",
@@ -22,19 +57,20 @@ export const scenarios = {
     },
     "dynamicClick": {
         name: "dynamicClick",
+        category: "clicking",
         targetCount: 5,
         movement: "moving",
         directionMode: "free",
         directionChangeMin: 0.8,
         directionChangeMax: 2.0,
-        environment: "wideBox",
+        environment: "box",
         spawnMode: "backWall",
         targetXRange: "full",
         targetYRange: "full",
     },
-
-    "beanclick": {
-        name: "beanclick",
+    "beanClick": {
+        name: "beanClick",
+        category: "clicking",
         targetCount: 2,
         movement: "moving",
         directionMode: "horizontal",
@@ -43,19 +79,33 @@ export const scenarios = {
         targetXRange: "half",
         targetYRange: "half",
     },
-    "peekFlicks": {
-        name: "peekFlicks",
+    "beanSwitching": {
+        name: "beanSwitching",
+        category: "switching",
         targetCount: 2,
         movement: "moving",
         directionMode: "horizontal",
-        environment: "hallwayGaps",
+        environment: "box",
+        spawnMode: "backWall",
+        targetXRange: "half",
+        targetYRange: "half",
+        interactionMode: "holdFire",
+        targetHealth: 20,
+    },
+    "peekClick": {
+        name: "peekClick",
+        category: "clicking",
+        targetCount: 2,
+        movement: "moving",
+        directionMode: "horizontal",
+        environment: "hallwayMultipleGaps",
         spawnMode: "wallGaps",
         targetXRange: "full",
         targetYRange: "none",
     },
-    
     "angleHold": {
         name: "angleHold",
+        category: "training",
         targetCount: 1,
         movement: "moving",
         directionMode: "horizontal",
@@ -64,14 +114,32 @@ export const scenarios = {
         targetXRange: "full",
         targetYRange: "none",
     },
-
-    "smallFlicks": {
-        name: "smallFlicks",
+    "hellHold": {
+        name: "hellHold",
+        category: "training",
         targetCount: 3,
-        movement: "static",
-        environment: "smallFarBox",
+        movement: "moving",
+        directionMode: "horizontal",
+        environment: "hallwayDoubleGap",
+        spawnMode: "wallGaps",
+        targetXRange: "full",
+        targetYRange: "none",
+    },
+
+    "closeStrafeTrack": {
+        name: "closeStrafeTrack",
+        category: "tracking",
+        targetCount: 1,
+        movement: "moving",
+        directionMode: "horizontal",
+        directionChangeMin: 0.75,
+        directionChangeMax: 1.5,
+        environment: "flatBox",
         spawnMode: "backWall",
         targetXRange: "full",
-        targetYRange: "full",
+        targetYRange: "half",
+        interactionMode: "holdFire",
+        targetHealth: 150,
     },
+
 } satisfies Record<string, ScenarioConfig>;

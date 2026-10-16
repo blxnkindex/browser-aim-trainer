@@ -185,6 +185,7 @@ export class ScenarioSettings<T extends string> {
         this.selectedConfig = this.scenarios[id];
         this.timeSelect.value = "30";
         this.sizeSelect.value = "0.2";
+        this.speedSelect.value = "3";
         this.customTimeInput.style.display = "none";
         this.customSizeInput.style.display = "none";
         this.customSpeedInput.style.display = "none";

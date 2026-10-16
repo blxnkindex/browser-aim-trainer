@@ -101,6 +101,7 @@ let scenario: Scenario | null = null;
 let score: Score | null = null;
 let hitDetection: HitDetection | null = null;
 let hud: HUD | null = null;
+let isFiring = false;
 
 const requestLock = async (): Promise<boolean> => {
     try {
@@ -160,6 +161,7 @@ const startScenario = async () => {
 };
 
 const pauseScenario = () => {
+    isFiring = false;
     if (!scenario || !hud) {
         return;
     }
@@ -173,6 +175,7 @@ const pauseScenario = () => {
 };
 
 const exitScenario = () => {
+    isFiring = false;
     if (!scenario || !score || !hud) {
         return;
     }
@@ -323,6 +326,9 @@ const menu = new MainMenu(
 );
 
 document.addEventListener("pointerlockchange", () => {
+    if (document.pointerLockElement === null) {
+        isFiring = false;
+    }
     if (!scenario || !hud) {
         return;
     }
@@ -377,7 +383,12 @@ canvas.addEventListener("mousedown", () => {
         return;
     }
 
-    weapon.fire();
+    // weapon.fire();
+    if (scenario.config.interactionMode === "holdFire") {
+        isFiring = true;
+        weapon.fire();
+        return;
+    }
 
     const hit = hitDetection.check(
         scenario.activeTargets.map((target) => target.mesh)
@@ -403,6 +414,10 @@ canvas.addEventListener("mousedown", () => {
     }
 });
 
+window.addEventListener("mouseup", () => {
+    isFiring = false;
+});
+
 window.addEventListener("resize", () => {
     const aspect = window.innerWidth / window.innerHeight;
 
@@ -425,7 +440,37 @@ function animate(timestamp: number) {
 
     if (scenario) {
         scenario.update(delta);
+        
     }
+
+    if (
+        scenario &&
+        score &&
+        hitDetection &&
+        isFiring &&
+        scenario.isActive &&
+        scenario.config.interactionMode === "holdFire" &&
+        document.pointerLockElement === canvas
+    ) {
+        const hit = hitDetection.check(
+            scenario.activeTargets.map((target) => target.mesh)
+        );
+
+        if (hit) {
+            const hitTarget = scenario.activeTargets.find(
+                (target) => target.mesh === hit
+            );
+
+            if (hitTarget) {
+                if (scenario.damageTarget(hitTarget, delta)) {
+                    const reactionTime = scenario.elapsed - hitTarget.spawnedAt;
+                    score.recordShot(true, reactionTime);
+                    weapon.playHitSound();
+                }
+            }
+        }
+    }
+
 
     if (hud) {
         hud.update(timestamp);

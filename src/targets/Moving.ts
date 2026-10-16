@@ -115,16 +115,17 @@ export class Moving implements Behaviour {
         this.nextDirectionChange = T.MathUtils.randFloat(min, max);
     }
 
+
     private chooseDirection() {
         const { directionMode } = this.config;
 
         if (directionMode === "horizontal") {
-            this.direction.set(Math.random() < 0.5 ? -1 : 1, 0, 0);
+            this.direction.set(-this.direction.x || (Math.random() < 0.5 ? -1 : 1), 0, 0);
             return;
         }
 
         if (directionMode === "vertical") {
-            this.direction.set(0, Math.random() < 0.5 ? -1 : 1, 0);
+            this.direction.set(0, -this.direction.y || (Math.random() < 0.5 ? -1 : 1), 0);
             return;
         }
 
@@ -140,6 +141,7 @@ export class Moving implements Behaviour {
         // Free movement, but restricted to the X/Y plane.
         this.direction.set(Math.random() * 2 - 1, Math.random() * 2 - 1, 0).normalize();
     }
+
 
     setDirection(direction: T.Vector3) {
         this.direction.copy(direction).normalize();

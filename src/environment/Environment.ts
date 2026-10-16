@@ -217,6 +217,30 @@ export class Environment {
 
         return gaps;
     }
+    
+    getBackWallXBounds(): { minX: number; maxX: number } {
+    let backWall: WallConfig | undefined;
+
+    for (const wall of this.walls) {
+        const config = wall.config;
+
+        if (
+            config.height > 0 &&
+            (!backWall || config.position.z < backWall.position.z)
+        ) {
+            backWall = config;
+        }
+    }
+
+    if (!backWall) {
+        throw new Error("Could not find a back wall.");
+    }
+
+    return {
+        minX: backWall.position.x - backWall.width / 2,
+        maxX: backWall.position.x + backWall.width / 2,
+    };
+}
 
     getBackWallPosition(x: number, offset: number): T.Vector3 {
         let backWall: WallConfig | undefined;
